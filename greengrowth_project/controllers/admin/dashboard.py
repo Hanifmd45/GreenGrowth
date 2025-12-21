@@ -6,4 +6,4 @@ admin_bp = Blueprint('admin', __name__, url_prefix='/admin')
 def dashboard():
     if 'logged_in' not in session:
         return redirect(url_for('auth.login'))
-    return render_template('user/dashboard.html')
+    return render_template('admin/dashboard.html')
