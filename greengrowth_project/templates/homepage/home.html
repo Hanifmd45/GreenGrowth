@@ -1,5 +1,9 @@
 {% extends 'layout.html' %}
 
+{% block nav %}
+    {% include 'partials/navbar.html' %}
+{% endblock %}
+
 {% block article %}
 <section class="hero-text">
     <h1>
@@ -32,3 +36,7 @@
          alt="Job Search Illustration">
 </section>
 {% endblock %}
+
+{%block footer%}
+    {% include 'partials/footer.html' %}
+{%endblock%}

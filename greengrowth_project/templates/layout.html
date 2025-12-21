@@ -7,12 +7,13 @@
   </head>
   <body>
     <header>
-      <nav>{% block nav %}{% include 'partials/navbar.html' %}{% endblock %}</nav>
+      <nav>{% block nav %}{% endblock %}</nav>
       {% block header %}{% endblock %}
     </header>
     <main>
       <aside>{%block aside%}{%endblock%}</aside>
       <article>{%block article%}{%endblock%}</article>
     </main>
+    <footer>{%block footer%}{%endblock%}</footer>
   </body>
 </html>
