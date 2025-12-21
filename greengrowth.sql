@@ -26,7 +26,7 @@ CREATE TABLE `admin_pemerintah` (
   `nama_admin` varchar(100) NOT NULL,
   `email_admin` varchar(100) NOT NULL,
   `admin_role` enum('admin') DEFAULT 'admin',
-  `password_admin` varchar(25) NOT NULL,
+  `password_admin` varchar(255) NOT NULL,
   `foto_admin` varchar(255) DEFAULT NULL,
   `instansi` varchar(150) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
