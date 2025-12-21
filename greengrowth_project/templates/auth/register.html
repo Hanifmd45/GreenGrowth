@@ -3,17 +3,25 @@
 {%block nav%} 
 {%endblock%}
 
-{%block header%} <h1>Silahkan Login</h1> {%endblock%}
+{%block header%} 
+    <h1>Registrasi</h1>
+{%endblock%}
 
 {%block aside%} {%endblock%}
 
 {%block article%} 
-     <form method="post">
+    <form method="post">
+        <label for="nama">Nama Lengkap</label>
+        <input name="nama" id="nama" required>
+
         <label for="email">Email</label>
         <input name="email" id="email" required>
 
         <label for="password">Password</label>
         <input type="password" name="password" id="password" required>
+        
+        <label for="konfimasi_password"> Konfirmasi Password</label>
+        <input type="password" name="conf_password" id="conf_password">
 
         <div class="" id="notification">
                 {% block notification %}
@@ -23,6 +31,6 @@
                 {% endblock %}
         </div>
 
-        <input type="submit" value="Log In">
+        <input type="submit" value="Register">
     </form>
 {%endblock%}
