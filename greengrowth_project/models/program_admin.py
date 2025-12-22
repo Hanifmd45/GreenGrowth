@@ -4,7 +4,7 @@ def createProgram_db(nama_program, sektor_program, tujuan_program, lokasi_progra
 
     cur = mysql.connection.cursor()
     cur.execute(
-        "INSERT INTO programs(nama_program, sektor_program, tujuan_program, lokasi_program, status_program, deskripsi_program) VALUES(%s, %s, %s, %s, %s, %s)",
+        "INSERT INTO program(nama_program, sektor_program, tujuan_program, lokasi_program, status_program, deskripsi_program) VALUES(%s, %s, %s, %s, %s, %s)",
         (nama_program, sektor_program, tujuan_program, lokasi_program, status_program, deskripsi_program),
     )
     mysql.connection.commit()
