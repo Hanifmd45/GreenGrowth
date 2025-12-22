@@ -15,6 +15,6 @@ def createProgram():
             status_program = 'perencanaan'
         deskripsi_program = request.form['deskripsi_program']
         createProgram_db(nama_program, sektor_program, tujuan_program, lokasi_program, status_program, deskripsi_program)
-        return redirect(url_for('admin.dashboard'))
+        return redirect(url_for('admin.create_program'))
     return render_template('admin/program.html')
 

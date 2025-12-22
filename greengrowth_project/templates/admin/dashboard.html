@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block nav %}
+    {% include 'partials/navbar.html' %}
+{% endblock %}
+{% block header %}
+    <h1>Dashboard Admin</h1>
+{% endblock %}
+
+{% block article %}
+    <p>Selamat datang di dashboard admin GreenGrowth!</p>
+    <a href="{{ url_for('admin.create_program') }}">Buat Program Baru</a>
+{% endblock %}

@@ -30,6 +30,3 @@ app.register_blueprint(admin_bp)
 def home():
     return render_template('homepage/home.html')
 
-@app.route('/create_program', methods=['GET', 'POST'])
-def create_program():
-    return createProgram()
