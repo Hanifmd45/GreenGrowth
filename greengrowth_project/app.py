@@ -3,7 +3,10 @@ from flask import Flask, render_template, request, redirect, url_for, session, f
 from flask_mysqldb import MySQL
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
-
+from .controllers.auth.routes import auth_bp
+from .controllers.user.dashboard import user_bp
+from .controllers.admin.dashboard_admin import admin_bp
+from .controllers.admin.program_admin import program_bp
 load_dotenv()
 
 app = Flask(__name__)
@@ -15,16 +18,11 @@ app.config["MYSQL_PASSWORD"] = ""
 app.config["MYSQL_DB"] = "greengrowth"
 mysql = MySQL(app)
 
-# Import blueprints after app and mysql are initialized to avoid circular imports
-from .controllers.auth.routes import auth_bp
-from .controllers.user.dashboard import user_bp
-from .controllers.admin.dashboard_admin import admin_bp
-from .controllers.admin.program_admin import createProgram
-
 # Blueprints
 app.register_blueprint(auth_bp)
 app.register_blueprint(user_bp)
 app.register_blueprint(admin_bp) 
+app.register_blueprint(program_bp) 
 
 @app.route('/')
 def home():

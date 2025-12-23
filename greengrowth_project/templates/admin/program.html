@@ -8,7 +8,7 @@
 </ul>
 {% endif %} {% endwith %}
 
-<form method="post" action="{{ url_for('admin.create_program') }}">
+<form method="post" action="{{ url_for('program.create_program') }}">
   <div class="form-group">
     <label for="nama_program">Nama Program</label>
     <input type="text" id="nama_program" name="nama_program" required />

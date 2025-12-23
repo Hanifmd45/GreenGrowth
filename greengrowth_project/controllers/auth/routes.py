@@ -1,10 +1,9 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
-from flask_mysqldb import MySQL
 from werkzeug.security import generate_password_hash, check_password_hash
 from greengrowth_project.models.user import get_account_user, add_account_user
 from greengrowth_project.models.admin import get_account_admin
-import MySQLdb.cursors
 
+# Membuat Blueprint untuk auth
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
