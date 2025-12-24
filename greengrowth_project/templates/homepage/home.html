@@ -41,7 +41,7 @@
     sustainable development.
   </p>
 
-  <!-- ✅ STATS PINDAH KE BAWAH -->
+  <!-- gambar stats -->
   <div class="mt-auto grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl">
     <img src="{{ url_for('static', filename='images/stats/live-job.png') }}">
     <img src="{{ url_for('static', filename='images/stats/companies.png') }}">
@@ -59,4 +59,8 @@
     class="max-w-lg"
   >
 </section>
+{% endblock %}
+
+{% block footer %}
+  {% include 'partials/footer.html' %}
 {% endblock %}
