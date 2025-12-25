@@ -1,12 +1,15 @@
+{% extends "layout.html" %} {% block nav %}
 <nav class="navbar">
   <div class="container">
     <div class="navbar-brand">
-        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="GreenGrowth Logo">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="GreenGrowth Logo" />
     </div>
     <ul class="navbar-menu">
+      {% if not session.get('logged_in') %}
       <li><a href="{{ url_for('home') }}">Home</a></li>
       <li><a href="{{ url_for('auth.login') }}">Lowongan</a></li>
       <li><a href="{{ url_for('auth.login') }}">Artikel</a></li>
+      {% endif %}
     </ul>
     <div class="navbar-actions">
       {% if session.get('logged_in') %} {% if session.get('role') == 'admin' or session.get('admin_id') %}
@@ -32,3 +35,4 @@
     </div>
   </div>
 </nav>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'layout.html' %} {% block nav %} {% include 'partials/navbar.html' %} {% endblock %} {% block header %}
+<div class="bg-yellow-50 border-b border-yellow-200 p-6">
+  <div class="container mx-auto">
+    <h1 class="text-2xl font-bold text-gray-800">Edit Artikel</h1>
+    <p class="text-gray-600 mt-1">Perbarui konten artikel di bawah ini.</p>
+  </div>
+</div>
+{% endblock %} {% block article %}
+<div class="container mx-auto p-6">
+  {% include 'partials/flash.html' %}
+
+  <form action="{{ url_for('artikel.edit', artikel_id=artikel.artikel_id) }}" method="post" enctype="multipart/form-data" class="bg-white rounded shadow p-6 space-y-4">
+    <input type="hidden" name="id" value="{{ artikel.artikel_id }}" />
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Judul</label>
+      <input type="text" name="judul_artikel" class="mt-1 block w-full rounded border-gray-200" value="{{ artikel.judul_artikel }}" required />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Deskripsi</label>
+      <textarea name="deskripsi" rows="8" class="mt-1 block w-full rounded border-gray-200" required>{{ artikel.deskripsi }}</textarea>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Program</label>
+      <select name="program_id" class="mt-1 block w-full rounded border-gray-200">
+        <option value="">-- Pilih Program --</option>
+        {% for p in programs %}
+          <option value="{{ p.program_id }}" {% if p.program_id == artikel.program_id %}selected{% endif %}>{{ p.nama_program }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Foto (unggah baru untuk mengganti)</label>
+      {% if artikel.foto_artikel %}
+        <div class="mb-2"><img src="{{ url_for('static', filename=artikel.foto_artikel) }}" alt="preview" class="w-48 rounded" /></div>
+      {% endif %}
+      <input type="file" name="foto_artikel" accept="image/*" class="mt-1 block w-full" />
+    </div>
+
+    <div class="flex items-center gap-3">
+      <button type="submit" class="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700">Perbarui</button>
+      <a href="{{ url_for('artikel.index') }}" class="text-gray-600 hover:underline">Batal</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

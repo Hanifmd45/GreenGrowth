@@ -1,0 +1,67 @@
+{% extends 'layout.html' %} {% block nav %} {% include 'partials/navbar.html' %} {% endblock %} {% block header %}
+<div class="bg-green-50 border-b border-green-200 p-6">
+  <div class="container mx-auto">
+    <h1 class="text-3xl font-extrabold text-gray-800">Artikel</h1>
+    <p class="text-gray-600 mt-1">Kelola semua artikel..</p>
+  </div>
+</div>
+{% endblock %} {% block article %}
+<div class="container mx-auto p-6">
+  <div class="flex items-center justify-between mb-6">
+    <h2 class="text-xl font-semibold">Daftar Artikel</h2>
+    <a href="{{ url_for('artikel.create') }}" class="inline-block bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">+ Tambah Artikel</a>
+  </div>
+
+  {% include 'partials/flash.html' %} {% if artikels and artikels|length > 0 %}
+  <div class="overflow-x-auto bg-white rounded shadow">
+    <table class="min-w-full text-left">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="px-4 py-3 text-sm font-medium text-gray-700">#</th>
+          <th class="px-4 py-3 text-sm font-medium text-gray-700">Judul</th>
+          <th class="px-4 py-3 text-sm font-medium text-gray-700">Program</th>
+          <th class="px-4 py-3 text-sm font-medium text-gray-700">Deskripsi</th>
+          <th class="px-4 py-3 text-sm font-medium text-gray-700">Foto</th>
+          <th class="px-4 py-3 text-sm font-medium text-gray-700">Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for artikel in artikels %}
+        <tr class="border-t">
+          <td class="px-4 py-3 text-sm text-gray-700">{{ loop.index }}</td>
+          <td class="px-4 py-3 text-sm text-gray-700">{{ artikel.program_name or '-' }}</td>
+          <td class="px-4 py-3 text-sm text-gray-800">{{ artikel.judul_artikel }}</td>
+          <td class="px-4 py-3 text-sm text-gray-700">{{ (artikel.deskripsi[:120] ~ ('...' if artikel.deskripsi and (artikel.deskripsi|length > 120) else '')) }}</td>
+          <td class="px-4 py-3 text-sm text-gray-700">
+            {% if artikel.foto_artikel %}
+            <img src="{{ url_for('static', filename=artikel.foto_artikel) }}" alt="{{ artikel.judul_artikel }}" class="w-24 h-auto rounded" />
+            {% else %} - {% endif %}
+          </td>
+          <td class="px-4 py-3 text-sm text-gray-700">
+            <a href="{{ url_for('artikel.show', artikel_id=artikel.artikel_id) }}" class="text-blue-600 hover:underline">Lihat</a>
+            <a href="{{ url_for('artikel.edit', artikel_id=artikel.artikel_id) }}" class="ml-3 text-yellow-600 hover:underline">Edit</a>
+            <form method="post" action="{{ url_for('artikel.delete', artikel_id=artikel.artikel_id) }}" class="inline" onsubmit="return confirm('Hapus artikel ini?');">
+              <button type="submit" class="ml-3 text-red-600 hover:underline">Hapus</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% if pagination %}
+  <nav class="mt-6 flex items-center justify-center space-x-2">
+    {% if pagination.prev %}
+    <a href="{{ pagination.prev }}" class="px-3 py-1 border rounded">«</a>
+    {% endif %} {% for p in pagination.pages %}
+    <a href="{{ p.url }}" class="px-3 py-1 border rounded {% if p.active %}bg-gray-200{% endif %}">{{ p.num }}</a>
+    {% endfor %} {% if pagination.next %}
+    <a href="{{ pagination.next }}" class="px-3 py-1 border rounded">»</a>
+    {% endif %}
+  </nav>
+  {% endif %} {% else %}
+  <div class="bg-white rounded shadow p-6 text-center text-gray-600">Belum ada artikel. <a href="{{ url_for('artikel.create') }}" class="text-green-600 hover:underline">Buat yang pertama</a>.</div>
+  {% endif %}
+</div>
+{% endblock %}
