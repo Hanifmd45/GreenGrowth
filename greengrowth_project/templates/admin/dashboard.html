@@ -2,11 +2,7 @@
 <div class="flex flex-col h-screen p-6">
   <!-- Logo -->
   <div class="mb-8 flex justify-center">
-    <img
-      src="{{ url_for('static', filename='images/logo_rmv.png') }}"
-      alt="Green Job Logo"
-      class="w-20 h-20 object-contain"
-    />
+    <img src="{{ url_for('static', filename='images/logo_rmv.png') }}" alt="Green Job Logo" class="w-20 h-20 object-contain" />
   </div>
 
   <!-- Sidebar Menu -->
@@ -14,67 +10,48 @@
     <nav>
       <ul class="space-y-2">
         <li>
-          <a
-            href="{{ url_for('admin.dashboard') }}"
-            class="flex items-center px-5 py-3 text-gray-800 hover:bg-green-400 rounded-lg text-lg font-medium"
-          >
+          <a href="{{ url_for('admin.dashboard') }}" class="flex items-center px-5 py-3 text-gray-800 hover:bg-green-400 rounded-lg text-lg font-medium">
             <span>Statistik</span>
           </a>
         </li>
         <li>
-          <a
-            href="{{ url_for('program.create_program') }}"
-            class="flex items-center px-5 py-3 text-gray-800 hover:bg-green-400 rounded-lg text-lg font-medium"
-          >
+          <a href="{{ url_for('program.create_program') }}" class="flex items-center px-5 py-3 text-gray-800 hover:bg-green-400 rounded-lg text-lg font-medium">
             <span>Buat Program Baru</span>
           </a>
         </li>
         <li>
-          <a
-            href="#"
-            class="flex items-center px-5 py-3 text-gray-800 hover:bg-green-400 rounded-lg text-lg font-medium"
-          >
+          <a href="{{ url_for('program.create_program') }}" class="flex items-center px-5 py-3 text-gray-800 hover:bg-green-400 rounded-lg text-lg font-medium">
             <span>Lihat Program</span>
           </a>
         </li>
         <li>
-          <a
-            href="#"
-            class="flex items-center px-5 py-3 text-gray-800 hover:bg-green-400 rounded-lg text-lg font-medium"
-          >
+          <a href="#" class="flex items-center px-5 py-3 text-gray-800 hover:bg-green-400 rounded-lg text-lg font-medium">
             <span>Buat Pekerjaan Baru</span>
           </a>
         </li>
         <li>
-          <a
-            href="#"
-            class="flex items-center px-5 py-3 text-gray-800 hover:bg-green-400 rounded-lg text-lg font-medium"
-          >
+          <a href="#" class="flex items-center px-5 py-3 text-gray-800 hover:bg-green-400 rounded-lg text-lg font-medium">
             <span>Lihat Pekerjaan</span>
           </a>
         </li>
         <li>
-          <a
-            href="#"
-            class="flex items-center px-5 py-3 text-gray-800 hover:bg-green-400 rounded-lg text-lg font-medium"
-          >
+          <a href="#" class="flex items-center px-5 py-3 text-gray-800 hover:bg-green-400 rounded-lg text-lg font-medium">
             <span>Memantau Lamaran</span>
           </a>
         </li>
         <li>
-          <a
-            href="#"
-            class="flex items-center px-5 py-3 text-gray-800 hover:bg-green-400 rounded-lg text-lg font-medium"
-          >
+          <a href="#" class="flex items-center px-5 py-3 text-gray-800 hover:bg-green-400 rounded-lg text-lg font-medium">
             <span>Laporan</span>
           </a>
         </li>
         <li>
-          <a
-            href="#"
-            class="flex items-center px-5 py-3 text-gray-800 hover:bg-green-400 rounded-lg text-lg font-medium"
-          >
-            <span>Artikel</span>
+          <a href="{{ url_for('artikel.create') }}" class="flex items-center px-5 py-3 text-gray-800 hover:bg-green-400 rounded-lg text-lg font-medium">
+            <span>Buat Artikel</span>
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('artikel.index') }}" class="flex items-center px-5 py-3 text-gray-800 hover:bg-green-400 rounded-lg text-lg font-medium">
+            <span>Kelola Artikel</span>
           </a>
         </li>
       </ul>
