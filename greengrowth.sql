@@ -48,11 +48,11 @@ CREATE TABLE `program` (
   `lokasi_program` varchar(150) DEFAULT NULL,
   `status_program` enum('perencanaan','berjalan','selesai') DEFAULT 'perencanaan',
   `deskripsi_program` text,
-  `admin_id` int DEFAULT NULL,
+  `admin_id` int NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`program_id`),
   KEY `fk_program_admin` (`admin_id`),
-  CONSTRAINT `fk_program_admin` FOREIGN KEY (`admin_id`) REFERENCES `admin_pemerintah` (`admin_id`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT `fk_program_admin` FOREIGN KEY (`admin_id`) REFERENCES `admin_pemerintah` (`admin_id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 /*Data for the table `program` */

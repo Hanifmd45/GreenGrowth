@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from greengrowth_project.models.user import get_account_user, add_account_user
-from greengrowth_project.models.admin import get_account_admin
+from greengrowth_project.models.admin import get_account_admin, get_program_by_admin
 
 # Membuat Blueprint untuk auth
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
@@ -29,6 +29,10 @@ def login():
             session['admin_id'] = akun_admin[0]
             session['admin_role'] = akun_admin[3]
             session['role'] = 'admin'
+            # Ambil program_id yang terhubung dengan admin
+            program = get_program_by_admin(akun_admin[0])
+            if program:
+                session['program_id'] = program[0]
             return redirect(url_for('admin.dashboard'))
         else:
             flash('Login gagal, email atau password anda salah!')
@@ -62,4 +66,4 @@ def register():
 def logout():
     session.clear()
     flash('Logout berhasil')
-    return redirect(url_for('auth.login'))
+    return redirect(url_for('home'))

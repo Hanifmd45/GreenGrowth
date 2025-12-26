@@ -1,0 +1,92 @@
+{% extends 'layout.html' %} 
+
+{% block nav %}{% endblock %}
+
+{% block header %}
+<h1>Update Lowongan</h1>
+{% endblock %} 
+
+{% block article %} 
+{% with messages = get_flashed_messages() %} 
+{% if messages %}
+<ul class="flashes">
+  {% for msg in messages %}
+  <li>{{ msg }}</li>
+  {% endfor %}
+</ul>
+{% endif %} 
+{% endwith %}
+
+<form method="post" action="{{ url_for('lowongan.edit_lowongan', lowongan_id=lowongan_id) }}">
+  <div class="form-group">
+    <label for="program_id">Program</label>
+    <select id="program_id" name="program_id" required>
+      <option value="">-- Pilih Program --</option>
+      {% for program in programs %}
+        <option value="{{ program[0] }}" {% if program[0] == lowongan[1] %}selected{% endif %}>
+          {{ program[1] if program[1] else 'Program ' ~ program[0] }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="judul_lowongan">Nama Lowongan</label>
+    <input type="text" id="judul_lowongan" name="judul_lowongan" value="{{ lowongan[2] }}" required />
+  </div>
+
+  <div class="form-group">
+    <label for="status_lowongan">Status</label>
+    <select id="status_lowongan" name="status_lowongan" required>
+      <option value="dibuka" {% if lowongan[3] == 'dibuka' %}selected{% endif %}>dibuka</option>
+      <option value="ditutup" {% if lowongan[3] == 'ditutup' %}selected{% endif %}>ditutup</option>
+    </select>
+    <small class="help">Jika tidak diisi, default akan menjadi <strong>dibuka</strong>.</small>
+  </div>
+
+  <div class="form-group">
+    <label for="min_umur">Minimal Umur</label>
+    <input type="number" id="min_umur" name="min_umur" min="0" max="70" value="{{ lowongan[4] }}" required />
+  </div>
+
+  <div class="form-group">
+    <label for="max_umur">Maksimal Umur</label>
+    <input type="number" id="max_umur" name="max_umur" min="0" max="70" value="{{ lowongan[5] }}" required />
+  </div>
+
+  <div class="form-group">
+    <label for="keahlian">Keahlian</label>
+    <textarea id="keahlian" name="keahlian" rows="3" required>{{ lowongan[6] }}</textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="pengalaman">Pengalaman</label>
+    <textarea id="pengalaman" name="pengalaman" rows="5" required>{{ lowongan[7] }}</textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="min_pendidikan">Minimal Pendidikan Terakhir</label>
+    <select id="min_pendidikan" name="min_pendidikan" required>
+      <option value="SD" {% if lowongan[8] == 'SD' %}selected{% endif %}>SD</option>
+      <option value="SMP" {% if lowongan[8] == 'SMP' %}selected{% endif %}>SMP</option>
+      <option value="SMA" {% if lowongan[8] == 'SMA' %}selected{% endif %}>SMA/SMK/MAN/Sederajatnya</option>
+      <option value="D3" {% if lowongan[8] == 'D3' %}selected{% endif %}>D3</option>
+      <option value="D4" {% if lowongan[8] == 'D4' %}selected{% endif %}>D4</option>
+      <option value="S1" {% if lowongan[8] == 'S1' %}selected{% endif %}>S1</option>
+      <option value="S2" {% if lowongan[8] == 'S2' %}selected{% endif %}>S2</option>
+      <option value="S3" {% if lowongan[8] == 'S3' %}selected{% endif %}>S3</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="kuota_pekerja">Kuota Pekerja</label>
+    <input type="number" id="kuota_pekerja" name="kuota_pekerja" min="0" max="70" value="{{ lowongan[9] }}" required />
+  </div>
+
+  <div class="form-actions">
+    <button type="submit">Update Lowongan</button>
+    <a href="{{ url_for('lowongan.read_lowongan') }}">Batal</a>
+  </div>
+</form>
+
+{% endblock %}
