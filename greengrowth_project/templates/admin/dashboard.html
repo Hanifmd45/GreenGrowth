@@ -1,13 +1,61 @@
-{% extends 'layout.html' %}
+{% extends "admin/layout_admin.html" %}{% block sidebar %}
+<div class="flex flex-col h-screen p-6">
+  <!-- Logo -->
+  <div class="mb-8 flex justify-center">
+    <img src="{{ url_for('static', filename='images/logo_rmv.png') }}" alt="Green Job Logo" class="w-20 h-20 object-contain" />
+  </div>
 
-{% block nav %}
-{% endblock %}
-{% block header %}
-    <h1>Dashboard Admin</h1>
-{% endblock %}
-
-{% block article %}
-    <p>Selamat datang di dashboard admin GreenGrowth!</p>
-    <a href="{{ url_for('program.list_program') }}">Buat Program Baru</a>
-    <a href="{{ url_for('lowongan.read_lowongan') }}">Buat Lowongan Baru</a>
+  <!-- Sidebar Menu -->
+  <aside class="bg-green-300 flex-1 px-8 py-6 rounded-3xl overflow-y-auto">
+    <nav>
+      <ul class="space-y-2">
+        <li>
+          <a href="{{ url_for('admin.dashboard') }}" class="flex items-center px-5 py-3 text-gray-800 hover:bg-green-400 rounded-lg text-lg font-medium">
+            <span>Statistik</span>
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('program.create_program') }}" class="flex items-center px-5 py-3 text-gray-800 hover:bg-green-400 rounded-lg text-lg font-medium">
+            <span>Buat Program Baru</span>
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('program.create_program') }}" class="flex items-center px-5 py-3 text-gray-800 hover:bg-green-400 rounded-lg text-lg font-medium">
+            <span>Lihat Program</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="flex items-center px-5 py-3 text-gray-800 hover:bg-green-400 rounded-lg text-lg font-medium">
+            <span>Buat Pekerjaan Baru</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="flex items-center px-5 py-3 text-gray-800 hover:bg-green-400 rounded-lg text-lg font-medium">
+            <span>Lihat Pekerjaan</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="flex items-center px-5 py-3 text-gray-800 hover:bg-green-400 rounded-lg text-lg font-medium">
+            <span>Memantau Lamaran</span>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="flex items-center px-5 py-3 text-gray-800 hover:bg-green-400 rounded-lg text-lg font-medium">
+            <span>Laporan</span>
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('artikel.create') }}" class="flex items-center px-5 py-3 text-gray-800 hover:bg-green-400 rounded-lg text-lg font-medium">
+            <span>Buat Artikel</span>
+          </a>
+        </li>
+        <li>
+          <a href="{{ url_for('artikel.index') }}" class="flex items-center px-5 py-3 text-gray-800 hover:bg-green-400 rounded-lg text-lg font-medium">
+            <span>Kelola Artikel</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+</div>
 {% endblock %}

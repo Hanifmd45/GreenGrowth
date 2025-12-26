@@ -6,6 +6,7 @@ from .controllers.auth.routes import auth_bp
 from .controllers.user.dashboard import user_bp
 from .controllers.admin.dashboard_admin import admin_bp
 from .controllers.admin.program_admin import program_bp
+from .controllers.admin.artikel_admin import artikel_bp
 from .controllers.admin.lowongan_admin import lowongan_bp
 load_dotenv()
 
@@ -18,14 +19,30 @@ app.config["MYSQL_PASSWORD"] = ""
 app.config["MYSQL_DB"] = "greengrowth"
 mysql = MySQL(app)
 
+# File upload config
+app.config['UPLOAD_FOLDER'] = os.path.join('static', 'uploads')
+app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024  # 5 MB
+app.config['ALLOWED_EXTENSIONS'] = {'png', 'jpg', 'jpeg', 'gif'}
+
 # Blueprints
 app.register_blueprint(auth_bp)
 app.register_blueprint(user_bp)
 app.register_blueprint(admin_bp) 
 app.register_blueprint(program_bp) 
+app.register_blueprint(artikel_bp)
 app.register_blueprint(lowongan_bp) 
 
 @app.route('/')
 def home():
     return render_template('homepage/home.html')
+
+
+# Handle oversize uploads gracefully
+from werkzeug.exceptions import RequestEntityTooLarge
+
+@app.errorhandler(RequestEntityTooLarge)
+def handle_large_file(error):
+    from flask import flash, redirect, request
+    flash('File terlalu besar (max 5MB).', 'error')
+    return redirect(request.referrer or url_for('home'))
 

@@ -1,0 +1,44 @@
+{% extends 'layout.html' %} {% block nav %} {% include 'partials/navbar.html' %} {% endblock %} {% block header %}
+<div class="bg-green-50 border-b border-green-200 p-6">
+  <div class="container mx-auto">
+    <h1 class="text-2xl font-bold text-gray-800">Buat Artikel Baru</h1>
+    <p class="text-gray-600 mt-1">Isi form di bawah untuk menambahkan artikel.</p>
+  </div>
+</div>
+{% endblock %} {% block article %}
+<div class="container mx-auto p-6">
+  {% include 'partials/flash.html' %}
+
+  <form action="{{ url_for('artikel.create') }}" method="post" enctype="multipart/form-data" class="bg-white rounded shadow p-6 space-y-4">
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Judul</label>
+      <input type="text" name="judul_artikel" value="{{ form.judul_artikel if form is defined else '' }}" class="mt-1 block w-full rounded border-gray-200" required />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Deskripsi</label>
+      <textarea name="deskripsi" rows="8" class="mt-1 block w-full rounded border-gray-200" required>{{ form.deskripsi if form is defined else '' }}</textarea>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Program</label>
+      <select name="program_id" class="mt-1 block w-full rounded border-gray-200" required>
+        <option value="">-- Pilih Program --</option>
+        {% for p in programs %}
+        <option value="{{ p.program_id }}">{{ p.nama_program }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700">Foto (unggah dari perangkat)</label>
+      <input type="file" name="foto_artikel" accept="image/*" class="mt-1 block w-full" />
+    </div>
+
+    <div class="flex items-center gap-3">
+      <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Simpan</button>
+      <a href="{{ url_for('admin.dashboard') }}" class="text-gray-600 hover:underline">Batal</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

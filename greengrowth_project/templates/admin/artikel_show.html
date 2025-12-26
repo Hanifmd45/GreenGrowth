@@ -1,0 +1,30 @@
+{% extends 'layout.html' %} {% block nav %} {% include 'partials/navbar.html' %} {% endblock %} {% block header %}
+<div class="bg-white border-b border-gray-200 p-6">
+  <div class="container mx-auto">
+    <h1 class="text-2xl font-bold text-gray-800">{{ artikel.judul_artikel }}</h1>
+    <p class="text-gray-500 mt-1">Diterbitkan: {{ artikel.created_at or artikel.updated_at or '-' }}</p>
+  </div>
+</div>
+{% endblock %} {% block article %}
+<div class="container mx-auto p-6">
+  {% include 'partials/flash.html' %}
+
+  <div class="bg-white rounded shadow p-6">
+    {% if artikel.foto_artikel %}
+    <img src="{{ artikel.foto_artikel }}" alt="{{ artikel.judul_artikel }}" class="w-full h-auto mb-4 rounded" />
+    {% endif %}
+
+    <p class="text-sm text-gray-600">Program: <strong>{{ artikel.program_name or '-' }}</strong></p>
+
+    <div class="prose max-w-none">{{ artikel.deskripsi | safe }}</div>
+
+    <div class="mt-4 flex gap-3">
+      <a href="{{ url_for('artikel.edit', artikel_id=artikel.artikel_id) }}" class="inline-block bg-yellow-600 text-white px-4 py-2 rounded">Edit</a>
+      <form method="post" action="{{ url_for('artikel.delete', artikel_id=artikel.artikel_id) }}" onsubmit="return confirm('Hapus artikel ini?');">
+        <button type="submit" class="inline-block bg-red-600 text-white px-4 py-2 rounded">Hapus</button>
+      </form>
+      <a href="{{ url_for('artikel.index') }}" class="text-gray-600 hover:underline">Kembali</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
