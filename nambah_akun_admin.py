@@ -10,3 +10,4 @@ def add_account_admin():
         print("Admin account added successfully!")
 
 add_account_admin()
+

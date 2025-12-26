@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, Respon
 import os
 import uuid
 from werkzeug.utils import secure_filename
-from greengrowth_project.models.artikel_admin import (
+from greengrowth_project.models.artikel import (
     createArtikel_db,
     get_all_artikels,
     get_artikel_by_id,

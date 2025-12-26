@@ -3,11 +3,12 @@ from flask import Flask, render_template
 from flask_mysqldb import MySQL
 from dotenv import load_dotenv
 from .controllers.auth.routes import auth_bp
-from .controllers.user.dashboard import user_bp
+from .controllers.user.dashboard_user import user_bp
 from .controllers.admin.dashboard_admin import admin_bp
 from .controllers.admin.program_admin import program_bp
-from .controllers.admin.artikel_admin import artikel_bp
+from .controllers.admin.artikel import artikel_bp
 from .controllers.admin.lowongan_admin import lowongan_bp
+from .controllers.user.artikel import artikel_user_bp
 load_dotenv()
 
 app = Flask(__name__)
@@ -31,6 +32,7 @@ app.register_blueprint(admin_bp)
 app.register_blueprint(program_bp) 
 app.register_blueprint(artikel_bp)
 app.register_blueprint(lowongan_bp) 
+app.register_blueprint(artikel_user_bp)
 
 @app.route('/')
 def home():

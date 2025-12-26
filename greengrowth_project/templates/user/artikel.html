@@ -1,0 +1,55 @@
+{% extends 'layout.html' %} {% block nav %} {% include 'partials/navbar.html' %} {% endblock %} {% block header %}
+<div class="bg-white border-b border-gray-200 p-6">
+  <div class="container mx-auto">
+    {% if artikel is defined %}
+    <h1 class="text-2xl font-bold text-gray-800">{{ artikel.judul_artikel }}</h1>
+    <p class="text-gray-500 mt-1">Diterbitkan: {{ artikel.created_at or artikel.updated_at or '-' }}</p>
+    {% elif artikels is defined %}
+    <h1 class="text-2xl font-bold text-gray-800">Daftar Artikel</h1>
+    <p class="text-gray-500 mt-1">Temukan artikel terbaru dari program kami.</p>
+    {% else %}
+    <h1 class="text-2xl font-bold text-gray-800">Artikel</h1>
+    {% endif %}
+  </div>
+</div>
+{% endblock %} {% block article %}
+<div class="container mx-auto p-6">
+  {% include 'partials/flash.html' %} {% if artikel is defined %}
+  <div class="bg-white rounded shadow p-6">
+    {% if artikel.foto_artikel %} {% if artikel.foto_artikel.startswith('http') %}
+    <img src="{{ artikel.foto_artikel }}" alt="{{ artikel.judul_artikel }}" class="w-full h-auto mb-4 rounded" />
+    {% else %}
+    <img src="{{ url_for('static', filename=artikel.foto_artikel) }}" alt="{{ artikel.judul_artikel }}" class="w-full h-auto mb-4 rounded" />
+    {% endif %} {% endif %}
+
+    <p class="text-sm text-gray-600">Program: <strong>{{ artikel.program_name or '-' }}</strong></p>
+
+    <div class="prose max-w-none">{{ artikel.deskripsi | safe }}</div>
+
+    <div class="mt-4 flex gap-3">
+      <a href="{{ url_for('artikel_user.list_artikel') }}" class="text-gray-600 hover:underline">Kembali</a>
+    </div>
+  </div>
+  {% elif artikels is defined %}
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for artikel in artikels %}
+    <div class="bg-white rounded shadow p-4">
+      {% if artikel.foto_artikel %} {% if artikel.foto_artikel.startswith('http') %}
+      <img src="{{ artikel.foto_artikel }}" alt="{{ artikel.judul_artikel }}" class="w-full h-48 object-cover mb-4 rounded" />
+      {% else %}
+      <img src="{{ url_for('static', filename=artikel.foto_artikel) }}" alt="{{ artikel.judul_artikel }}" class="w-full h-48 object-cover mb-4 rounded" />
+      {% endif %} {% endif %}
+      <h2 class="text-xl font-semibold">{{ artikel.judul_artikel }}</h2>
+      <p class="text-gray-500 text-sm mb-2">Diterbitkan: {{ artikel.created_at or artikel.updated_at or '-' }}</p>
+      <p class="text-gray-700 text-sm mb-4">{{ artikel.deskripsi[:150] }}{% if artikel.deskripsi|length > 150 %}...{% endif %}</p>
+      <a href="{{ url_for('artikel_user.show', artikel_id=artikel.artikel_id) }}" class="text-blue-600 hover:underline">Baca selengkapnya</a>
+    </div>
+    {% else %}
+    <p>Tidak ada artikel.</p>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p>Tidak ada artikel.</p>
+  {% endif %}
+</div>
+{% endblock %}
