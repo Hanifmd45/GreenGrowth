@@ -1,0 +1,92 @@
+{% extends 'layout.html' %} 
+
+{% block nav %}{% endblock %}
+
+{% block header %}
+<h1>Buat Lowongan Baru</h1>
+{% endblock %} 
+
+{% block article %} 
+{% with messages = get_flashed_messages() %} 
+{% if messages %}
+<ul class="flashes">
+  {% for msg in messages %}
+  <li>{{ msg }}</li>
+  {% endfor %}
+</ul>
+{% endif %} 
+{% endwith %}
+
+<form method="post" action="{{ url_for('lowongan.create_lowongan') }}">
+  <div class="form-group">
+    <label for="program_id">Program</label>
+    <select id="program_id" name="program_id" required>
+      <option value="">-- Pilih Program --</option>
+      {% for program in programs %}
+        <option value="{{ program[0] }}" {% if program[0]|string == selected_program_id|string %}selected{% endif %}>
+          {{ program[1] if program[1] else 'Program ' ~ program[0] }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="nama_lowongan">Nama Lowongan</label>
+    <input type="text" id="nama_lowongan" name="nama_lowongan" required />
+  </div>
+
+  <div class="form-group">
+    <label for="status_lowongan">Status</label>
+    <select id="status_lowongan" name="status_lowongan" required>
+      <option value="dibuka" selected>dibuka</option>
+      <option value="ditutup">ditutup</option>
+    </select>
+    <small class="help">Jika tidak diisi, default akan menjadi <strong>dibuka</strong>.</small>
+  </div>
+
+  <div class="form-group">
+    <label for="min_umur">Minimal Umur</label>
+    <input type="number" id="min_umur" name="min_umur" min="0" max="70" required />
+  </div>
+
+  <div class="form-group">
+    <label for="max_umur">Maksimal Umur</label>
+    <input type="number" id="max_umur" name="max_umur" min="0" max="70" required />
+  </div>
+
+  <div class="form-group">
+    <label for="keahlian">Keahlian</label>
+    <textarea id="keahlian" name="keahlian" rows="3" required></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="pengalaman">Pengalaman</label>
+    <textarea id="pengalaman" name="pengalaman" rows="5" required></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="min_pendidikan">Minimal Pendidikan Terakhir</label>
+    <select id="min_pendidikan" name="min_pendidikan" required>
+      <option value="SD" selected>SD</option>
+      <option value="SMP">SMP</option>
+      <option value="SMA">SMA/SMK/MAN/Sederajatnya</option>
+      <option value="D3">D3</option>
+      <option value="D4">D4</option>
+      <option value="S1">S1</option>
+      <option value="S2">S2</option>
+      <option value="S3">S3</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="kuota">Kuota Pekerja</label>
+    <input type="number" id="kuota_pekerja" name="kuota_pekerja" min="0" max="70" required />
+  </div>
+
+  <div class="form-actions">
+    <button type="submit">Buat Lowongan</button>
+    <a href="{{ url_for('admin.dashboard') }}">Batal</a>
+  </div>
+</form>
+
+{% endblock %}

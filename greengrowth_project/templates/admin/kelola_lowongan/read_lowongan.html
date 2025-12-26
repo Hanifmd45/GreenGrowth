@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+
+{% block nav %}
+{% endblock %}
+
+{% block header %}
+    <h1>Kelola Lowongan</h1>
+{% endblock %}
+
+{% block article %}
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class="flashes">
+      {% for msg in messages %}
+      <li>{{ msg }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+    <div class="program-selector">
+        <h3>Pilih Program</h3>
+        <form method="get" action="{{ url_for('lowongan.read_lowongan') }}">
+            <select name="program_id" onchange="this.form.submit()" required>
+                {% for program in programs %}
+                    <option value="{{ program[0] }}" {% if program[0]|string == selected_program_id|string %}selected{% endif %}>
+                        {{ program[1] if program[1] else 'Program ' ~ program[0] }}
+                    </option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
+
+    <div class="daftar_lowongan">
+        <h2>Daftar Lowongan</h2>
+        
+        {% if lowongan | length > 0 %}
+            <ul class="lowongan-list">
+                {% for item in lowongan %}
+                    <li class="lowongan-item">
+                        <strong>{{ item[2] }}</strong>
+                        <p>Status: {{ item[3] }}</p>
+                        <p>Umur: {{ item[4] }} - {{ item[5] }} tahun</p>
+                        <div class="actions">
+                            <a href="{{ url_for('lowongan.edit_lowongan', lowongan_id=item[0]) }}">Edit</a>
+                        </div>
+                        <form method="POST" action="{{ url_for('lowongan.delete_lowongan', lowongan_id=item[0]) }}" style="display:inline;">
+                            <button type="submit"  onclick="return confirm('Yakin ingin menghapus?')">Hapus</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Belum ada lowongan.</p>
+        {% endif %}
+    </div>
+
+    <div class="create-button-wrapper">
+        <a href="{{ url_for('lowongan.create_lowongan', program_id=selected_program_id) }}" class="btn btn-primary">Buat Lowongan Baru</a>
+    </div>
+{% endblock %}

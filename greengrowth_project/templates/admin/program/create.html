@@ -1,12 +1,21 @@
-{% extends 'layout.html' %} {% block nav %}{% endblock %} {% block header %}
+{% extends 'layout.html' %} 
+
+{% block nav %}{% endblock %}
+
+{% block header %}
 <h1>Buat Program Baru</h1>
-{% endblock %} {% block article %} {% with messages = get_flashed_messages() %} {% if messages %}
+{% endblock %} 
+
+{% block article %} 
+{% with messages = get_flashed_messages() %} 
+{% if messages %}
 <ul class="flashes">
   {% for msg in messages %}
   <li>{{ msg }}</li>
   {% endfor %}
 </ul>
-{% endif %} {% endwith %}
+{% endif %} 
+{% endwith %}
 
 <form method="post" action="{{ url_for('program.create_program') }}">
   <div class="form-group">
