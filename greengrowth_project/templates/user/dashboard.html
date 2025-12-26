@@ -5,88 +5,104 @@
 {% endblock %}
 
 {% block article %}
-<section class="w-full px-10 py-14 space-y-16">
+<style>
+  /* Override main agar dashboard full width vertikal */
+  main {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+</style>
+
+<div class="w-full flex flex-col space-y-12 px-10 py-14 bg-gray-50">
 
   <!-- ================= CATEGORY ================= -->
-  <section>
-    <h2 class="text-2xl font-bold mb-6">Category</h2>
+  <article class="w-full">
+    <h2 class="text-3xl font-bold mb-6 text-green-800">Category</h2>
 
-    <div class="flex flex-wrap gap-4">
-      {# Jika menggunakan database:
-      {% if categories %}
-        {% for category in categories %}
-        <button
-          class="px-6 py-3 bg-gray-100 rounded-full
-                 hover:bg-green-600 hover:text-white
-                 transition">
-          {{ category.name }}
-        </button>
-        {% endfor %}
-      {% else %} #}
-
-      <!-- Dummy category untuk debug -->
-      <button class="px-6 py-3 bg-gray-100 rounded-full hover:bg-green-600 hover:text-white transition">
-        Education
-      </button>
-      <button class="px-6 py-3 bg-gray-100 rounded-full hover:bg-green-600 hover:text-white transition">
-        Environment
-      </button>
-      <button class="px-6 py-3 bg-gray-100 rounded-full hover:bg-green-600 hover:text-white transition">
-        Health
-      </button>
-
-      {# {% endif %} #}
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+      <!-- Dummy category cards -->
+      <div class="category-card cursor-pointer bg-white border border-green-200 rounded-2xl shadow-md hover:shadow-lg transform hover:-translate-y-1 hover:bg-green-50 transition-all duration-300 flex flex-col items-center justify-center p-6 space-y-2" data-category="Education">
+        <span class="text-2xl text-green-600">🎓</span>
+        <span class="font-semibold text-gray-800 text-lg">Education</span>
+      </div>
+      <div class="category-card cursor-pointer bg-white border border-green-200 rounded-2xl shadow-md hover:shadow-lg transform hover:-translate-y-1 hover:bg-green-50 transition-all duration-300 flex flex-col items-center justify-center p-6 space-y-2" data-category="Environment">
+        <span class="text-2xl text-green-600">🌳</span>
+        <span class="font-semibold text-gray-800 text-lg">Environment</span>
+      </div>
+      <div class="category-card cursor-pointer bg-white border border-green-200 rounded-2xl shadow-md hover:shadow-lg transform hover:-translate-y-1 hover:bg-green-50 transition-all duration-300 flex flex-col items-center justify-center p-6 space-y-2" data-category="Health">
+        <span class="text-2xl text-green-600">🩺</span>
+        <span class="font-semibold text-gray-800 text-lg">Health</span>
+      </div>
+      <div class="category-card cursor-pointer bg-white border border-green-200 rounded-2xl shadow-md hover:shadow-lg transform hover:-translate-y-1 hover:bg-green-50 transition-all duration-300 flex flex-col items-center justify-center p-6 space-y-2" data-category="Agriculture">
+        <span class="text-2xl text-green-600">🌾</span>
+        <span class="font-semibold text-gray-800 text-lg">Agriculture</span>
+      </div>
     </div>
-  </section>
+  </article>
 
   <!-- ================= PROGRAM ================= -->
-  <section>
-    <h2 class="text-2xl font-bold mb-8">Program</h2>
+  <aside class="w-full">
+    <h2 class="text-3xl font-bold mb-6 text-green-800">Program</h2>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div id="program-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 
-      {# Jika menggunakan database:
-      {% if programs %}
-        {% for program in programs %}
-        <div class="bg-white rounded-xl shadow p-6 flex flex-col">
-          ...
+      <!-- Dummy program cards -->
+      {# ================= LOOP FOR PROGRAMS =================
+    {% for program in programs %}
+      <div class="program-card bg-white rounded-2xl shadow-md hover:shadow-lg transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 flex flex-col overflow-hidden border border-green-100" data-category="Education">
+        <div class="h-40 bg-gradient-to-r from-green-100 to-green-200 flex items-center justify-center mb-4 rounded-t-2xl">
+          <span class="text-green-500 text-lg font-semibold">No Image</span>
         </div>
-        {% endfor %}
-      {% else %} #}
-
-      <!-- Dummy program untuk debug -->
-      <div class="bg-white rounded-xl shadow p-6 flex flex-col">
-        <div class="h-40 bg-gray-200 rounded-lg flex items-center justify-center mb-4">
-          <span class="text-gray-500">No Image</span>
+        <div class="p-4 flex flex-col flex-grow">
+          <h3 class="font-semibold text-xl mb-1 text-green-800">School Renovation</h3>
+          <p class="text-sm text-green-600 mb-2">📍 Jakarta</p>
+          <p class="text-sm text-green-700 flex-grow">Renovating schools for better education.</p>
+          <a href="#" class="mt-4 self-start px-5 py-2 text-sm bg-gradient-to-r from-green-400 to-green-600 text-white rounded-md hover:from-green-500 hover:to-green-700 transition-all duration-300">View details</a>
         </div>
-        <h3 class="font-semibold text-lg mb-1">Tree Planting</h3>
-        <p class="text-sm text-gray-600 mb-2">📍 Jakarta</p>
-        <p class="text-sm text-gray-500 flex-grow">A program to plant trees in the city.</p>
-        <a href="#"
-           class="mt-4 self-end px-4 py-2 text-sm bg-gray-200 rounded-md hover:bg-green-600 hover:text-white transition">
-          View details
-        </a>
+      </div>
+      {% endfor %} #}
+
+      <div class="program-card bg-white rounded-2xl shadow-md hover:shadow-lg transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 flex flex-col overflow-hidden border border-green-100" data-category="Environment">
+        <div class="h-40 bg-gradient-to-r from-green-100 to-green-200 flex items-center justify-center mb-4 rounded-t-2xl">
+          <span class="text-green-500 text-lg font-semibold">No Image</span>
+        </div>
+        <div class="p-4 flex flex-col flex-grow">
+          <h3 class="font-semibold text-xl mb-1 text-green-800">Tree Planting</h3>
+          <p class="text-sm text-green-600 mb-2">📍 Yogyakarta</p>
+          <p class="text-sm text-green-700 flex-grow">Planting trees to improve urban greenery.</p>
+          <a href="#" class="mt-4 self-start px-5 py-2 text-sm bg-gradient-to-r from-green-400 to-green-600 text-white rounded-md hover:from-green-500 hover:to-green-700 transition-all duration-300">View details</a>
+        </div>
       </div>
 
-      <div class="bg-white rounded-xl shadow p-6 flex flex-col">
-        <div class="h-40 bg-gray-200 rounded-lg flex items-center justify-center mb-4">
-          <span class="text-gray-500">No Image</span>
+      <div class="program-card bg-white rounded-2xl shadow-md hover:shadow-lg transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 flex flex-col overflow-hidden border border-green-100" data-category="Health">
+        <div class="h-40 bg-gradient-to-r from-green-100 to-green-200 flex items-center justify-center mb-4 rounded-t-2xl">
+          <span class="text-green-500 text-lg font-semibold">No Image</span>
         </div>
-        <h3 class="font-semibold text-lg mb-1">Beach Cleanup</h3>
-        <p class="text-sm text-gray-600 mb-2">📍 Bali</p>
-        <p class="text-sm text-gray-500 flex-grow">A program to clean up beaches and raise awareness.</p>
-        <a href="#"
-           class="mt-4 self-end px-4 py-2 text-sm bg-gray-200 rounded-md hover:bg-green-600 hover:text-white transition">
-          View details
-        </a>
+        <div class="p-4 flex flex-col flex-grow">
+          <h3 class="font-semibold text-xl mb-1 text-green-800">Medical Camp</h3>
+          <p class="text-sm text-green-600 mb-2">📍 Bali</p>
+          <p class="text-sm text-green-700 flex-grow">Providing free medical check-ups in villages.</p>
+          <a href="#" class="mt-4 self-start px-5 py-2 text-sm bg-gradient-to-r from-green-400 to-green-600 text-white rounded-md hover:from-green-500 hover:to-green-700 transition-all duration-300">View details</a>
+        </div>
       </div>
 
-      {# {% endif %} #}
+      <div class="program-card bg-white rounded-2xl shadow-md hover:shadow-lg transform hover:-translate-y-1 hover:scale-105 transition-all duration-300 flex flex-col overflow-hidden border border-green-100" data-category="Agriculture">
+        <div class="h-40 bg-gradient-to-r from-green-100 to-green-200 flex items-center justify-center mb-4 rounded-t-2xl">
+          <span class="text-green-500 text-lg font-semibold">No Image</span>
+        </div>
+        <div class="p-4 flex flex-col flex-grow">
+          <h3 class="font-semibold text-xl mb-1 text-green-800">Organic Farming</h3>
+          <p class="text-sm text-green-600 mb-2">📍 Bandung</p>
+          <p class="text-sm text-green-700 flex-grow">Promoting organic farming in rural areas.</p>
+          <a href="#" class="mt-4 self-start px-5 py-2 text-sm bg-gradient-to-r from-green-400 to-green-600 text-white rounded-md hover:from-green-500 hover:to-green-700 transition-all duration-300">View details</a>
+        </div>
+      </div>
 
     </div>
-  </section>
+  </aside>
 
-</section>
+</div>
 {% endblock %}
 
 {% block footer %}
