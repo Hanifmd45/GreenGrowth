@@ -65,9 +65,9 @@
         <p class="text-sm text-black/70 flex-grow">
           {{ program.description }}
         </p>
-
+        {#
         <a
-          href="#"
+          href="{{ url_for('user.program', program_id=program.id) }}"
           class="mt-4 self-start px-5 py-2 text-sm
                  bg-gradient-to-r from-[#0BDAAA] to-[#15F275]
                  text-black font-semibold rounded-full
@@ -76,6 +76,7 @@
 
           View details
         </a>
+          #}
       </div>
       {% else %}
         <p class="text-black/50 col-span-full">
