@@ -22,6 +22,7 @@ def login():
             session['user_id'] = akun_user[0]
             session['user_role'] = akun_user[3]
             session['role'] = 'user'
+            flash(f'Selamat datang {akun_user[1]}!👋', 'success')
             return redirect(url_for('user.dashboard'))
         # Cek akun admin
         elif akun_admin is not None and check_password_hash(akun_admin[4], password):
@@ -33,9 +34,10 @@ def login():
             program = get_program_by_admin(akun_admin[0])
             if program:
                 session['program_id'] = program[0]
+            flash(f"Halo Admin {akun_admin[1]}, selamat bekerja!", "success")
             return redirect(url_for('admin.dashboard'))
         else:
-            flash('Login gagal, email atau password anda salah!')
+            flash('Login gagal, email atau password anda salah!','error')
             return redirect(url_for('auth.login'))
     return render_template('auth/login.html')
 
@@ -49,21 +51,21 @@ def register():
         conf_password = request.form['conf_password']
         # Kondisi konfirmasi password
         if password != conf_password:
-            flash('Password yang anda masukan tidak sesuai, silahkan coba lagi!')
+            flash('Password yang anda masukan tidak sesuai, silahkan coba lagi!','error')
             return redirect(url_for('auth.register'))
         # Mengecek apakah email sudah digunakan?
         user = get_account_user(email)
         if user:
-            flash("Email sudah digunakan!")
+            flash("Email sudah digunakan!", "error")
             return render_template('auth/register.html')
         # Proses menambahkan akun baru
         add_account_user(nama,email,password)
-        flash("Berhasil untuk mendaftar akun!")
+        flash("Berhasil untuk mendaftar akun!", "success")
         return redirect(url_for('auth.login'))
     return render_template('auth/register.html')
 
 @auth_bp.route('/logout')
 def logout():
     session.clear()
-    flash('Logout berhasil')
+    flash('Sampai jumpa lagi! 👋', 'info')
     return redirect(url_for('home'))
