@@ -21,7 +21,7 @@
     <div class="bg-gray-200 rounded-2xl flex flex-col items-center justify-center h-80 gap-4">
       <img
         id="preview"
-        src="{{ user.photo if user.photo else 'https://cdn-icons-png.flaticon.com/512/892/892781.png' }}"
+        src="{{ user.foto_user if user.foto_user else 'https://cdn-icons-png.flaticon.com/512/892/892781.png' }}"
         class="w-32 h-32 rounded-full object-cover bg-white"
       />
 
@@ -29,7 +29,7 @@
         Upload Photo
         <input
           type="file"
-          name="photo"
+          name="foto_user"
           accept="image/*"
           class="hidden"
           onchange="previewImage(event)"
@@ -43,33 +43,33 @@
       <form
         id="profileForm"
         method="POST"
-        action="{{ url_for('update_profile') }}"
+        action="{{ url_for('profil.update_profile') }}"
         enctype="multipart/form-data"
         class="space-y-4"
       >
-        <input type="text" name="name" value="{{ user.name }}" placeholder="Name" class="w-full px-4 py-3 rounded-xl focus:outline-none" />
+        <input type="text" name="nama_user" value="{{ user.nama_user }}" placeholder="Name" class="w-full px-4 py-3 rounded-xl focus:outline-none" />
 
         <select name="gender" class="w-full px-4 py-3 rounded-xl focus:outline-none">
           <option disabled>Gender</option>
-          <option value="male" {% if user.gender == 'male' %}selected{% endif %}>Male</option>
-          <option value="female" {% if user.gender == 'female' %}selected{% endif %}>Female</option>
+          <option value="Laki-laki" {% if user.gender == 'Laki-laki' %}selected{% endif %}>Laki-laki</option>
+          <option value="Perempuan" {% if user.gender == 'Perempuan' %}selected{% endif %}>Perempuan</option>
         </select>
 
-        <input type="date" name="dob" value="{{ user.dob }}" class="w-full px-4 py-3 rounded-xl focus:outline-none" />
+        <input type="date" name="tanggal_lahir" value="{{ user.tanggal_lahir }}" class="w-full px-4 py-3 rounded-xl focus:outline-none" />
 
-        <select name="education" class="w-full px-4 py-3 rounded-xl focus:outline-none">
+        <select name="pendidikan_tertinggi" class="w-full px-4 py-3 rounded-xl focus:outline-none">
           <option disabled>Highest level of education</option>
-          <option {% if user.education=='High School' %}selected{% endif %}>High School</option>
-          <option {% if user.education=='Diploma' %}selected{% endif %}>Diploma</option>
-          <option {% if user.education=='Bachelor' %}selected{% endif %}>Bachelor</option>
-          <option {% if user.education=='Master' %}selected{% endif %}>Master</option>
+          <option {% if user.pendidikan_tertinggi=='High School' %}selected{% endif %}>High School</option>
+          <option {% if user.pendidikan_tertinggi=='Diploma' %}selected{% endif %}>Diploma</option>
+          <option {% if user.pendidikan_tertinggi=='Bachelor' %}selected{% endif %}>Bachelor</option>
+          <option {% if user.pendidikan_tertinggi=='Master' %}selected{% endif %}>Master</option>
         </select>
 
-        <input type="text" name="soft_skills" value="{{ user.soft_skills }}" placeholder="Soft Skills" class="w-full px-4 py-3 rounded-xl focus:outline-none" />
-        <input type="text" name="hard_skills" value="{{ user.hard_skills }}" placeholder="Hard Skills" class="w-full px-4 py-3 rounded-xl focus:outline-none" />
-        <input type="text" name="experience" value="{{ user.experience }}" placeholder="Experience" class="w-full px-4 py-3 rounded-xl focus:outline-none" />
-        <input type="text" name="phone" value="{{ user.phone }}" placeholder="Phone Number" class="w-full px-4 py-3 rounded-xl focus:outline-none" />
-        <input type="text" name="address" value="{{ user.address }}" placeholder="Address" class="w-full px-4 py-3 rounded-xl focus:outline-none" />
+        <input type="text" name="softskill" value="{{ user.softskill }}" placeholder="Soft Skills" class="w-full px-4 py-3 rounded-xl focus:outline-none" />
+        <input type="text" name="hardskill" value="{{ user.hardskill }}" placeholder="Hard Skills" class="w-full px-4 py-3 rounded-xl focus:outline-none" />
+        <input type="text" name="pengalaman" value="{{ user.pengalaman }}" placeholder="Experience" class="w-full px-4 py-3 rounded-xl focus:outline-none" />
+        <input type="text" name="no_hp" value="{{ user.no_hp }}" placeholder="Phone Number" class="w-full px-4 py-3 rounded-xl focus:outline-none" />
+        <input type="text" name="alamat" value="{{ user.alamat }}" placeholder="Address" class="w-full px-4 py-3 rounded-xl focus:outline-none" />
 
         <div class="flex justify-end pt-4">
           <button type="submit" class="px-8 py-3 bg-white rounded-full font-semibold shadow">
