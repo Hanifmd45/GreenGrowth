@@ -9,7 +9,7 @@ from greengrowth_project.models.artikel import (
     edit_artikel_by_id,
     delete_artikel_by_id,
 )
-from greengrowth_project.models.program_admin import get_all_programs, get_program_by_id
+from greengrowth_project.models.program import get_all_programs, get_program_by_id
 
 artikel_bp = Blueprint('artikel', __name__, url_prefix='/admin/artikel')
 

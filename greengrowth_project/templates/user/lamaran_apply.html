@@ -1,0 +1,182 @@
+{% extends 'layout.html' %} {% block title %}Apply Lamaran - {{ lowongan.judul }}{% endblock %} {% block body_class %}bg-gray-50 font-sans{% endblock %} {% block nav %} {% include "partials/navbar.html" %} {% endblock %} {% block article %}
+<div class="w-full px-10 py-14">
+  <div class="max-w-5xl mx-auto">
+    <!-- Header -->
+    <div class="mb-8">
+      <h1 class="text-4xl font-bold text-gray-800 mb-2">Konfirmasi Lamaran</h1>
+      <p class="text-gray-600">Pastikan data Anda sudah benar sebelum mengirim lamaran</p>
+    </div>
+
+    <form method="POST" class="space-y-6">
+      <!-- Lowongan Info Card -->
+      <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+          <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+            />
+          </svg>
+          Informasi Lowongan
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <p class="text-sm text-gray-600 mb-1">Posisi</p>
+            <p class="text-lg font-semibold text-gray-800">{{ lowongan.judul }}</p>
+          </div>
+
+          {% if program %}
+          <div>
+            <p class="text-sm text-gray-600 mb-1">Program</p>
+            <p class="text-lg font-semibold text-gray-800">{{ program.nama }}</p>
+          </div>
+
+          {% if program.lokasi %}
+          <div>
+            <p class="text-sm text-gray-600 mb-1">Lokasi</p>
+            <p class="text-lg font-semibold text-gray-800">{{ program.lokasi }}</p>
+          </div>
+          {% endif %} {% endif %}
+
+          <div>
+            <p class="text-sm text-gray-600 mb-1">Status Lowongan</p>
+            {% if lowongan.status == 'dibuka' %}
+            <span class="inline-block px-4 py-1 bg-green-100 text-green-700 rounded-full font-semibold">Dibuka</span>
+            {% else %}
+            <span class="inline-block px-4 py-1 bg-red-100 text-red-700 rounded-full font-semibold">Ditutup</span>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="mt-6 pt-6 border-t border-gray-200 grid md:grid-cols-2 gap-4">
+          {% if lowongan.min_umur or lowongan.max_umur %}
+          <div class="flex items-center gap-2 text-gray-700">
+            <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+            <span>Umur: {{ lowongan.min_umur or '-' }} - {{ lowongan.max_umur or '-' }} tahun</span>
+          </div>
+          {% endif %} {% if lowongan.min_pendidikan %}
+          <div class="flex items-center gap-2 text-gray-700">
+            <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+              />
+            </svg>
+            <span>Pendidikan: {{ lowongan.min_pendidikan }}</span>
+          </div>
+          {% endif %} {% if lowongan.kuota %}
+          <div class="flex items-center gap-2 text-gray-700">
+            <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+              />
+            </svg>
+            <span>Kuota: {{ lowongan.kuota }} orang</span>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- User Profile Card -->
+      <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+          <svg class="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+          Data Pelamar
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <p class="text-sm text-gray-600 mb-1">Nama Lengkap</p>
+            <p class="text-lg font-semibold text-gray-800">{{ user.nama_user }}</p>
+          </div>
+
+          <div>
+            <p class="text-sm text-gray-600 mb-1">Email</p>
+            <p class="text-lg font-semibold text-gray-800">{{ user.email_user }}</p>
+          </div>
+
+          {% if user.no_hp %}
+          <div>
+            <p class="text-sm text-gray-600 mb-1">No. HP</p>
+            <p class="text-lg font-semibold text-gray-800">{{ user.no_hp }}</p>
+          </div>
+          {% endif %} {% if user.gender %}
+          <div>
+            <p class="text-sm text-gray-600 mb-1">Jenis Kelamin</p>
+            <p class="text-lg font-semibold text-gray-800">{{ user.gender }}</p>
+          </div>
+          {% endif %} {% if user.tanggal_lahir %}
+          <div>
+            <p class="text-sm text-gray-600 mb-1">Tanggal Lahir</p>
+            <p class="text-lg font-semibold text-gray-800">{{ user.tanggal_lahir }}</p>
+          </div>
+          {% endif %} {% if user.pendidikan_tertinggi %}
+          <div>
+            <p class="text-sm text-gray-600 mb-1">Pendidikan Tertinggi</p>
+            <p class="text-lg font-semibold text-gray-800">{{ user.pendidikan_tertinggi }}</p>
+          </div>
+          {% endif %} {% if user.alamat %}
+          <div class="md:col-span-2">
+            <p class="text-sm text-gray-600 mb-1">Alamat</p>
+            <p class="text-lg font-semibold text-gray-800">{{ user.alamat }}</p>
+          </div>
+          {% endif %} {% if user.pengalaman %}
+          <div class="md:col-span-2">
+            <p class="text-sm text-gray-600 mb-1">Pengalaman</p>
+            <p class="text-gray-700 leading-relaxed">{{ user.pengalaman }}</p>
+          </div>
+          {% endif %} {% if user.hardskill %}
+          <div>
+            <p class="text-sm text-gray-600 mb-1">Hard Skills</p>
+            <p class="text-gray-700">{{ user.hardskill }}</p>
+          </div>
+          {% endif %} {% if user.softskill %}
+          <div>
+            <p class="text-sm text-gray-600 mb-1">Soft Skills</p>
+            <p class="text-gray-700">{{ user.softskill }}</p>
+          </div>
+          {% endif %}
+        </div>
+
+        <div class="mt-6 pt-6 border-t border-gray-200">
+          <a href="{{ url_for('profile_user.view_profile', user_id=user.user_id, next=request.path) }}" class="text-blue-600 hover:text-blue-700 font-semibold flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+            Edit Profile
+          </a>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-wrap gap-4">
+        <button
+          type="submit"
+          class="flex-1 min-w-[200px] px-8 py-4 rounded-full bg-gradient-to-r from-[#0BDAAA] to-[#15F275] text-black font-bold text-lg hover:from-[#15F275] hover:to-[#0BDAAA] transition duration-300 shadow-lg hover:shadow-xl"
+        >
+          Submit Application
+        </button>
+
+        <a
+          href="{{ url_for('lowongan_user.list_lowongan', program_id=lowongan.program_id) }}"
+          class="flex-1 min-w-[200px] px-8 py-4 rounded-full border-2 border-gray-300 text-gray-700 font-bold text-lg text-center hover:bg-gray-100 transition duration-300"
+        >
+          Batal
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %} {% block footer %} {% include "partials/footer.html" %} {% endblock %}

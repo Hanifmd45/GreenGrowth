@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
-from greengrowth_project.models.program_admin import createProgram_db, readProgram_by_admin, readProgram_by_id, updateProgram_db, deleteProgram_db
+from greengrowth_project.models.program import createProgram_db, readProgram_by_admin, readProgram_by_id, updateProgram_db, deleteProgram_db
 
 program_bp = Blueprint('program', __name__, url_prefix='/program')
 

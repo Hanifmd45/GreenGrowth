@@ -4,7 +4,7 @@ import uuid
 from werkzeug.utils import secure_filename
 from werkzeug.utils import secure_filename
 from greengrowth_project.models.laporan import createLaporan_db, readLaporan_db, readLaporan_by_id,updateLaporan_db, deleteLaporan_db
-from greengrowth_project.models.program_admin import readProgram_by_admin, get_program_by_id
+from greengrowth_project.models.program import readProgram_by_admin, get_program_by_id
 laporan_bp = Blueprint('laporan', __name__, url_prefix='/laporan')
 
 def allowed_file(filename):

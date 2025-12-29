@@ -76,29 +76,57 @@ def deleteProgram_db(program_id):
 
 
 def get_all_programs():
-    """Return list of programs as dicts"""
     from greengrowth_project.app import mysql
     cur = mysql.connection.cursor()
-    cur.execute("SELECT program_id, nama_program FROM program ORDER BY nama_program ASC")
+    cur.execute("""
+        SELECT 
+            program_id,
+            nama_program,
+            lokasi_program,
+            deskripsi_program
+        FROM program ORDER BY nama_program ASC
+    """)
     rows = cur.fetchall()
     cur.close()
+
     programs = []
     for r in rows:
         programs.append({
-            'program_id': r[0],
-            'nama_program': r[1]
+            'id': r[0],
+            'nama': r[1],
+            'lokasi': r[2],
+            'deskripsi': r[3]
         })
     return programs
+
 
 
 def get_program_by_id(program_id):
     from greengrowth_project.app import mysql
     cur = mysql.connection.cursor()
-    cur.execute("SELECT program_id, nama_program FROM program WHERE program_id=%s", (program_id,))
+    cur.execute("""
+        SELECT 
+            program_id,
+            nama_program,
+            sektor_program,
+            tujuan_program,
+            lokasi_program,
+            deskripsi_program
+        FROM program
+        WHERE program_id = %s
+    """, (program_id,))
     r = cur.fetchone()
     cur.close()
+
     if not r:
         return None
-    return {'program_id': r[0], 'nama_program': r[1]}
 
+    return {
+        'id': r[0],
+        'nama': r[1],
+        'sektor': r[2],
+        'tujuan': r[3],
+        'lokasi': r[4],
+        'deskripsi': r[5]
+    }
 

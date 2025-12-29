@@ -22,12 +22,41 @@ def readLowongan_db(program_id):
     try:
         cur = mysql.connection.cursor()
         cur.execute(
-            "SELECT * FROM lowongan WHERE program_id=%s", (program_id,)
+            """SELECT 
+                lowongan_id,
+                program_id,
+                judul_lowongan,
+                status_lowongan,
+                lowongan_min_umur,
+                lowongan_max_umur,
+                lowongan_keahlian,
+                lowongan_pengalaman,
+                lowongan_min_pendidikan,
+                kuota_pekerja
+            FROM lowongan 
+            WHERE program_id=%s""", (program_id,)
         )
-        result = cur.fetchall()
+        rows = cur.fetchall()
         cur.close()
-        return result
+        
+        # Convert to dictionary for easier template access
+        lowongans = []
+        for row in rows:
+            lowongans.append({
+                'id': row[0],
+                'program_id': row[1],
+                'judul': row[2],
+                'status': row[3],
+                'min_umur': row[4],
+                'max_umur': row[5],
+                'keahlian': row[6],
+                'pengalaman': row[7],
+                'min_pendidikan': row[8],
+                'kuota': row[9]
+            })
+        return lowongans
     except Exception as e:
+        print(f"Error reading lowongan: {e}")
         return []
 
 def readLowongan_by_id(lowongan_id):
@@ -36,11 +65,38 @@ def readLowongan_by_id(lowongan_id):
     try:
         cur = mysql.connection.cursor()
         cur.execute(
-            "SELECT * FROM lowongan WHERE lowongan_id=%s", (lowongan_id,)
+            """SELECT 
+                lowongan_id,
+                program_id,
+                judul_lowongan,
+                status_lowongan,
+                lowongan_min_umur,
+                lowongan_max_umur,
+                lowongan_keahlian,
+                lowongan_pengalaman,
+                lowongan_min_pendidikan,
+                kuota_pekerja
+            FROM lowongan 
+            WHERE lowongan_id=%s""", (lowongan_id,)
         )
-        result = cur.fetchone()
+        row = cur.fetchone()
         cur.close()
-        return result
+        
+        if not row:
+            return None
+            
+        return {
+            'id': row[0],
+            'program_id': row[1],
+            'judul': row[2],
+            'status': row[3],
+            'min_umur': row[4],
+            'max_umur': row[5],
+            'keahlian': row[6],
+            'pengalaman': row[7],
+            'min_pendidikan': row[8],
+            'kuota': row[9]
+        }
     except Exception as e:
         print(f"Error reading lowongan: {e}")
         return None
