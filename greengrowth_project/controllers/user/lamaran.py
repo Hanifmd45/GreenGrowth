@@ -15,7 +15,11 @@ def apply_lamaran(lowongan_id):
         return redirect(url_for('auth.login'))
     
     user_id = session.get('user_id')
-    
+
+    # If user_id missing in session, redirect to login (preserve next)
+    if not user_id:
+        return redirect(url_for('auth.login', next=request.path))
+
     # Get user profile
     user_profile = get_user_profile(user_id)
     if not user_profile:
