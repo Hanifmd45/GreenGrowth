@@ -1,73 +1,82 @@
 {% extends "admin/layout_admin.html" %} {% block sidebar %} {% include
 'admin/sidebar.html' %} {% endblock %} {% block content %}
-
-<!--============================= KONTEN UTAMA ===========================-->
+<!-- ============================================================================ -->
+<!--                              KONTEN UTAMA                                    -->
+<!-- ============================================================================ -->
 <div class="p-6 flex flex-col h-screen">
-  <!-- ========================== judul halaman ============================= -->
+  <!-- Judul Halaman -->
   <h1 class="mt-4 mb-6 text-center text-4xl font-bold text-black">
     Statistical Program
   </h1>
-{% include 'partials/flash.html' %}
 
-  <!-- =========================== KONTEN UTAMA ================================ -->
+  <!-- Flash Messages -->
+  {% include 'partials/flash.html' %}
+
+  <!-- ========================================================================== -->
+  <!--                         CONTAINER DAFTAR PROGRAM                           -->
+  <!-- ========================================================================== -->
   <div
-    class="mt-8 flex-1 flex bg-[#0BDAAA] rounded-3xl p-8 overflow-hidden "
+    class="mt-8 flex-1 flex flex-col bg-[#0BDAAA] rounded-3xl p-8 overflow-hidden"
   >
     {% if programs | length > 0 %}
 
-    <!-- =========================== BIAR MUNCUL SKROL BAR ================================ -->
-    <div class="overflow-y-auto w-full">
+    <!-- Scrollable Content Area -->
+    <div class="overflow-y-auto w-full flex-1">
       {% for program in programs %}
-
-      <!-- =========================== PER BAGIAN PROGRAM ================================ -->
-      <div class="bg-black/10 rounded-2xl p-6 mb-8">
-        <h3 class="text-2xl text-center font-bold text-black">
-          Program : {{ program[1] }}
+      <!-- ====================================================================== -->
+      <!--                          CARD PROGRAM                                  -->
+      <!-- ====================================================================== -->
+      <div class="bg-black/10 rounded-2xl p-6 mb-8 hover:bg-black/20">
+        <!-- Nama Program -->
+        <h3 class="text-2xl text-center font-bold text-black mb-4">
+          Program: {{ program[1] }}
         </h3>
 
-        <!-- ===================== sektor, lokasi dan status ======================= -->
-        <div class="space-y-2 text-sm">
-          <div class="font-bold text-black">Sector : {{ program[2] }}</div>
-          <div class="font-bold text-black">Region : {{ program[4] }}</div>
-          <div class="flex items-center gap-2 font-bold text-black">Status :
+        <!-- Info: Sektor, Lokasi, Status -->
+        <div class="space-y-2 text-sm mb-4">
+          <div class="font-bold text-black">Sector: {{ program[2] }}</div>
+          <div class="font-bold text-black">Region: {{ program[4] }}</div>
+          <div class="flex items-center gap-2 font-bold text-black">
+            Status:
             <span
-            class="inline-block p-1 rounded-full {% if program[5] == 'berjalan' %} bg-[#15F275] {% elif program[5] == 'selesai' %} bg-[#C7FB01] {% else %} bg-white/50 {% endif %}"
+              class="inline-block px-3 py-1 rounded-full {% if program[5] == 'berjalan' %}bg-[#15F275]{% elif program[5] == 'selesai' %}bg-[#C7FB01]{% else %}bg-white/50{% endif %}"
             >
-            {{ program[5] }}
+              {{ program[5] }}
+            </span>
           </div>
         </div>
-        
-        <!-- ===================== bagian tujuan program ======================= -->
-        <div class="mb-2 mt-4">
-          <p class="font-bold text-black">Program Terget:</p>
+
+        <!-- Tujuan Program -->
+        <div class="mb-4">
+          <p class="font-bold text-black">Program Target:</p>
           <p class="text-black">{{ program[3] }}</p>
         </div>
-        
-        <!-- ===================== bagian deskripi program ======================= -->
-        <div class="mb-8">
+
+        <!-- Deskripsi Program -->
+        <div class="mb-6">
           <p class="font-bold text-black">Program Description:</p>
           <p class="text-black">{{ program[6] }}</p>
         </div>
-        
-        
-        <!-- ===================== bagian button ======================= -->
+
+        <!-- Tombol Aksi -->
         <div class="flex items-center justify-between gap-3">
+          <!-- Tombol Statistik -->
           <div class="flex items-center gap-3">
             <a
               href="{{ url_for('statistik.statistik_persentase_program', program_id=program[0]) }}"
-              class="px-6 py-2 rounded-full text-sm font-semibold text-black bg-white/70 hover:bg-[#15F275] "
+              class="px-6 py-2 rounded-full text-sm font-semibold text-black bg-white/70 hover:bg-[#15F275]"
             >
               Statistik Persentase
             </a>
-
             <a
               href="{{ url_for('statistik.statistik_output_ekonomi', program_id=program[0]) }}"
-              class="px-6 py-2 rounded-full text-sm font-semibold text-black bg-white/70 hover:bg-[#15F275] "
+              class="px-6 py-2 rounded-full text-sm font-semibold text-black bg-white/70 hover:bg-[#15F275]"
             >
               Statistik Ekonomi
             </a>
           </div>
 
+          <!-- Tombol Edit & Delete -->
           <div class="flex items-center gap-3">
             <a
               href="{{ url_for('program.edit_program', program_id=program[0]) }}"
@@ -75,7 +84,6 @@
             >
               Update Program
             </a>
-
             <form
               method="POST"
               action="{{ url_for('program.delete_program', program_id=program[0]) }}"
@@ -90,25 +98,25 @@
             </form>
           </div>
         </div>
+      </div>
+      {% endfor %}
     </div>
-    {% endfor %}
-  </div>
-  
-  {% else %}
-  
 
-  <!-- ===================== JIKA BELUM ADA PROGRAM ======================= -->
-  <div class="flex flex-1 flex-col items-center justify-center text-center">
-    <p class="mb-6 text-lg font-bold text-black">There are no programs yet.</p>
-    
-    <a
-    href="{{ url_for('program.create_program') }}"
-    class="inline-block px-20 py-3 rounded-full font-bold text-black bg-[#15F275] hover:bg-[#C7FB01]"
-    >
+    {% else %}
+    <!-- ====================================================================== -->
+    <!--                      STATE: BELUM ADA PROGRAM                          -->
+    <!-- ====================================================================== -->
+    <div class="flex flex-1 flex-col items-center justify-center text-center">
+      <p class="mb-6 text-lg font-bold text-black">
+        There are no programs yet.
+      </p>
+      <a
+        href="{{ url_for('program.create_program') }}"
+        class="inline-block px-20 py-3 rounded-full font-bold text-black bg-[#15F275] hover:bg-[#C7FB01]"
+      >
         Create a Program Now
       </a>
     </div>
-
     {% endif %}
   </div>
 </div>

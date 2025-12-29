@@ -1,70 +1,82 @@
-{% extends "admin/layout_admin.html" %} {% block sidebar %} {% include
-'admin/sidebar.html' %} {% endblock %}{% block content %}
+{% extends "admin/layout_admin.html" %}
 
-<!--============================= KONTEN UTAMA ===========================-->
+{% block sidebar %}
+  {% include 'admin/sidebar.html' %}
+{% endblock %}
+
+{% block content %}
+<!-- ============================================================================ -->
+<!--                              KONTEN UTAMA                                    -->
+<!-- ============================================================================ -->
 <div class="p-6 flex flex-col h-screen">
-  <!--============================= judul halaman ===========================-->
+  
+  <!-- Judul Halaman -->
   <h1 class="mt-4 mb-6 text-center text-4xl font-bold text-black">
     Update Program
   </h1>
-{% include 'partials/flash.html' %}
-  <!--============================= INPUT FORM ===========================-->
+  
+  <!-- Flash Messages -->
+  {% include 'partials/flash.html' %}
+  
+  <!-- ========================================================================== -->
+  <!--                           FORM UPDATE PROGRAM                              -->
+  <!-- ========================================================================== -->
   <div class="bg-[#0BDAAA] rounded-3xl p-6 overflow-y-auto mt-8">
-
     <form method="POST" class="space-y-2">
-      <!--============================= nama program ===========================-->
+      
+      <!-- Field: Nama Program -->
       <div>
-        <label
-          for="nama_program"
+        <label 
+          for="nama_program" 
           class="block text-black font-bold mb-2 text-sm"
         >
           Program Name
         </label>
-        <input
-          type="text"
-          id="nama_program"
-          name="nama_program"
-          placeholder="Enter the program name"
-          value="{{ program[1] or '' }}"
-          class="w-full px-4 py-3 bg-black/10 rounded-xl text-black font-bold placeholder-black/40 focus:outline-none"
-          required
+        <input 
+          type="text" 
+          id="nama_program" 
+          name="nama_program" 
+          placeholder="Enter the program name" 
+          value="{{ program[1] or '' }}" 
+          class="w-full px-4 py-3 bg-black/10 rounded-xl text-black font-bold placeholder-black/40 focus:outline-none" 
+          required 
         />
       </div>
 
-      <!--============================= status program ===========================-->
+      <!-- Field: Status Program -->
       <div>
-        <label
-          for="status_program"
+        <label 
+          for="status_program" 
           class="block text-black font-bold mb-2 text-sm"
         >
           Program Status
         </label>
-        <select
-          id="status_program"
-          name="status_program"
-          class="w-full px-4 py-3 bg-black/10 rounded-xl text-black font-bold focus:outline-none"
+        <select 
+          id="status_program" 
+          name="status_program" 
+          class="w-full px-4 py-3 bg-black/10 rounded-xl text-black font-bold focus:outline-none" 
           required
         >
           <option value="" disabled style="background-color: #15f275">
             Select program status
           </option>
-          <option
-            value="perencanaan"
-            {% if program[5] == 'perencanaan' %}selected{% endif %}
+          <option 
+            value="perencanaan" 
+            {% if program[5] == 'perencanaan' %}selected{% endif %} 
             style="background-color: #15f275; font-weight: bold"
           >
             Perencanaan
           </option>
-          <option
-            value="berjalan"
-            {% if program[5] == 'berjalan' %}selected{% endif %}
+          <option 
+            value="berjalan" 
+            {% if program[5] == 'berjalan' %}selected{% endif %} 
             style="background-color: #15f275; font-weight: bold"
           >
             Berjalan
           </option>
-          <option
-            value="selesai"
-            {% if program[5] == 'selesai' %}selected{% endif %}
+          <option 
+            value="selesai" 
+            {% if program[5] == 'selesai' %}selected{% endif %} 
             style="background-color: #15f275; font-weight: bold"
           >
             Selesai
@@ -72,95 +84,97 @@
         </select>
       </div>
 
-      <!--============================= sektor program ===========================-->
+      <!-- Field: Sektor Program -->
       <div>
-        <label
-          for="sektor_program"
+        <label 
+          for="sektor_program" 
           class="block text-black font-bold mb-2 text-sm"
         >
           Program Sector
         </label>
-        <input
-          type="text"
-          id="sektor_program"
-          name="sektor_program"
-          placeholder="Enter sector/category"
-          value="{{ program[2] or '' }}"
-          class="w-full px-4 py-3 bg-black/10 rounded-xl text-black font-bold placeholder-black/40 focus:outline-none"
-          required
+        <input 
+          type="text" 
+          id="sektor_program" 
+          name="sektor_program" 
+          placeholder="Enter sector/category" 
+          value="{{ program[2] or '' }}" 
+          class="w-full px-4 py-3 bg-black/10 rounded-xl text-black font-bold placeholder-black/40 focus:outline-none" 
+          required 
         />
       </div>
 
-      <!--============================= lokasi program ===========================-->
+      <!-- Field: Lokasi Program -->
       <div>
-        <label
-          for="lokasi_program"
+        <label 
+          for="lokasi_program" 
           class="block text-black font-bold mb-2 text-sm"
         >
           Program Location
         </label>
-        <input
-          type="text"
-          id="lokasi_program"
-          name="lokasi_program"
-          placeholder="Enter location/region"
-          value="{{ program[4] or '' }}"
-          class="w-full px-4 py-3 bg-black/10 rounded-xl text-black font-bold placeholder-black/40 focus:outline-none"
-          required
+        <input 
+          type="text" 
+          id="lokasi_program" 
+          name="lokasi_program" 
+          placeholder="Enter location/region" 
+          value="{{ program[4] or '' }}" 
+          class="w-full px-4 py-3 bg-black/10 rounded-xl text-black font-bold placeholder-black/40 focus:outline-none" 
+          required 
         />
       </div>
 
-      <!--============================= tujuan program ===========================-->
+      <!-- Field: Tujuan Program -->
       <div>
-        <label
-          for="tujuan_program"
+        <label 
+          for="tujuan_program" 
           class="block text-black font-bold mb-2 text-sm"
         >
-          program objectives
+          Program Objectives
         </label>
-        <textarea
-          id="tujuan_program"
-          name="tujuan_program"
-          rows="2"
-          placeholder="Enter the program objectives/targets"
-          class="w-full px-4 py-3 bg-black/10 rounded-xl text-black font-bold placeholder-black/40 focus:outline-none"
+        <textarea 
+          id="tujuan_program" 
+          name="tujuan_program" 
+          rows="2" 
+          placeholder="Enter the program objectives/targets" 
+          class="w-full px-4 py-3 bg-black/10 rounded-xl text-black font-bold placeholder-black/40 focus:outline-none" 
           required
         >{{ program[3] or '' }}</textarea>
       </div>
 
-      <!--============================= deskripsi program ===========================-->
+      <!-- Field: Deskripsi Program -->
       <div>
-        <label
-          for="deskripsi_program"
+        <label 
+          for="deskripsi_program" 
           class="block text-black font-bold mb-2 text-sm"
         >
           Program Description
         </label>
-        <textarea
-          id="deskripsi_program"
-          name="deskripsi_program"
-          rows="3"
-          placeholder="Enter description"
+        <textarea 
+          id="deskripsi_program" 
+          name="deskripsi_program" 
+          rows="3" 
+          placeholder="Enter description" 
           class="w-full px-4 py-2 bg-black/10 rounded-xl text-black font-bold placeholder-black/40 focus:outline-none"
         >{{ program[6] or '' }}</textarea>
       </div>
 
-      <!--============================= BAGIAN BUTTON ===========================-->
+      <!-- Tombol Aksi -->
       <div class="flex justify-center gap-4 pt-2">
-        <button
-          type="submit"
+        <button 
+          type="submit" 
           class="bg-[#15F275] hover:bg-[#C7FB01] text-black font-bold px-20 py-3 rounded-full"
         >
           Save Changes
         </button>
-        <a
-          href="{{ url_for('program.list_program') }}"
-          class="bg-black/20 hover:bg-black/30 text-black font-bold px-16 py-3 rounded-full"
+        <a 
+          href="{{ url_for('program.list_program') }}" 
+          class="bg-black/20 hover:bg-black/30 text-black font-bold px-16 py-3 rounded-full inline-flex items-center"
         >
-          Back   
+          Back
         </a>
       </div>
+      
     </form>
   </div>
+  
 </div>
 {% endblock %}

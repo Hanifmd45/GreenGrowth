@@ -1,48 +1,55 @@
-{% extends "admin/layout_admin.html" %}
-{% block sidebar %} 
-{% include 'admin/sidebar.html' %} 
+ {% extends "admin/layout_admin.html" %}
+
+{% block sidebar %}
+  {% include 'admin/sidebar.html' %}
 {% endblock %}
 
 {% block content %}
-
-<!--============================= KONTEN UTAMA ===========================-->
+<!-- ============================================================================ -->
+<!--                              KONTEN UTAMA                                    -->
+<!-- ============================================================================ -->
 <div class="p-6 flex flex-col h-screen">
-  <!--============================= judul halaman ===========================-->
+  
+  <!-- Judul Halaman -->
   <h1 class="mt-4 mb-6 text-center text-4xl font-bold text-black">
-    Update Laporan
+    Update Report
   </h1>
-{% include 'partials/flash.html' %}
-  <!--============================= INPUT FORM ===========================-->
-  <div class="bg-[#0BDAAA] rounded-3xl p-6 overflow-y-auto mt-8">
-    {% include 'partials/flash.html' %}
 
-    <form
-      method="POST"
-      action="{{ url_for('laporan.update_laporan', laporan_id=laporan_id) }}"
-      enctype="multipart/form-data"
-      class="space-y-2"
+  <!-- Flash Messages -->
+  {% include 'partials/flash.html' %}
+
+  <!-- ========================================================================== -->
+  <!--                           FORM UPDATE REPORT                               -->
+  <!-- ========================================================================== -->
+  <div class="bg-[#0BDAAA] rounded-3xl p-6 overflow-y-auto mt-8">
+    <form 
+      method="POST" 
+      action="{{ url_for('laporan.update_laporan', laporan_id=laporan_id) }}" 
+      enctype="multipart/form-data" 
+      class="space-y-6"
     >
-      <!--============================= pilih program ===========================-->
+      
+      <!-- Field: Program -->
       <div>
-        <label
-          for="program_id"
+        <label 
+          for="program_id" 
           class="block text-black font-bold mb-2 text-sm"
         >
           Program
         </label>
-        <select
-          id="program_id"
-          name="program_id"
-          class="w-full px-4 py-3 bg-black/10 rounded-xl text-black font-bold focus:outline-none"
+        <select 
+          id="program_id" 
+          name="program_id" 
+          class="w-full px-4 py-3 bg-black/10 rounded-xl text-black font-bold focus:outline-none" 
           required
         >
           <option value="" disabled style="background-color: #15f275">
             -- Select Program --
           </option>
           {% for program in programs %}
-          <option
-            value="{{ program[0] }}"
-            {% if program[1] == laporan[1] %}selected{% endif %}
+          <option 
+            value="{{ program[0] }}" 
+            {% if program[1] == laporan[1] %}selected{% endif %} 
             style="background-color: #15f275; font-weight: bold"
           >
             {{ program[1] }}
@@ -51,125 +58,125 @@
         </select>
       </div>
 
-      <!--============================= upload foto baru ===========================-->
+      <!-- Field: Upload Foto -->
       <div>
-        <label
-          for="foto_laporan"
+        <label 
+          for="foto_laporan" 
           class="block text-black font-bold mb-2 text-sm"
         >
           Report Photo
         </label>
         
-        <!--============================= preview foto lama ===========================-->
+        <!-- Preview Foto Lama -->
         {% if laporan and laporan[2] %}
         <div class="mb-3">
-          <p class="text-xs text-black/60 font-semibold mb-2">current photo :</p>
-          <img
-            src="{{ url_for('static', filename=laporan[2]) }}"
-            alt="Foto Laporan"
-            class="w-48 h-auto rounded-xl shadow-md"
+          <p class="text-xs text-black/60 font-semibold mb-2">Current photo:</p>
+          <img 
+            src="{{ url_for('static', filename=laporan[2]) }}" 
+            alt="Report Photo" 
+            class="w-48 h-auto rounded-xl shadow-md" 
           />
         </div>
         {% endif %}
 
-        <!--============================= input file baru ===========================-->
-        <div class="relative">
-          <input
-            type="file"
-            id="foto_laporan"
-            name="foto_laporan"
-            accept="image/*"
-            class="w-full px-4 py-3 bg-black/10 rounded-xl text-black font-bold focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-[#15F275] file:text-black hover:file:bg-[#C7FB01] cursor-pointer"
-          />
-        </div>
+        <!-- Input File Baru -->
+        <input 
+          type="file" 
+          id="foto_laporan" 
+          name="foto_laporan" 
+          accept="image/*" 
+          class="w-full px-4 py-3 bg-black/10 rounded-xl text-black font-bold focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-bold file:bg-[#15F275] file:text-black hover:file:bg-[#C7FB01] cursor-pointer" 
+        />
         <p class="mt-1 text-xs text-black/60 font-semibold">
-          Format: JPG, PNG, JPEG. Max 5MB
+          Format: JPG, PNG, JPEG. Maximum 5MB. Leave empty to keep current photo.
         </p>
       </div>
 
-      <!--============================= tanggal laporan ===========================-->
+      <!-- Field: Tanggal Laporan -->
       <div>
-        <label
-          for="tanggal_laporan"
+        <label 
+          for="tanggal_laporan" 
           class="block text-black font-bold mb-2 text-sm"
         >
-          Report Laporan
+          Report Date
         </label>
-        <input
-          type="date"
-          id="tanggal_laporan"
-          name="tanggal_laporan"
-          value="{{ laporan[3] if laporan else '' }}"
-          class="w-full px-4 py-3 bg-black/10 rounded-xl text-black font-bold focus:outline-none"
-          required
+        <input 
+          type="date" 
+          id="tanggal_laporan" 
+          name="tanggal_laporan" 
+          value="{{ laporan[3] if laporan else '' }}" 
+          class="w-full px-4 py-3 bg-black/10 rounded-xl text-black font-bold focus:outline-none" 
+          required 
         />
       </div>
 
-      <!--============================= persentase progres ===========================-->
+      <!-- Field: Persentase Progres -->
       <div>
-        <label
-          for="laporan_persentase_progres"
+        <label 
+          for="laporan_persentase_progres" 
           class="block text-black font-bold mb-2 text-sm"
         >
-          Persentase Progres Program (%)
+          Program Progress Percentage (%)
         </label>
-        <input
-          type="number"
-          id="laporan_persentase_progres"
-          name="laporan_persentase_progres"
-          min="0"
-          max="100"
-          step="0.1"
-          value="{{ laporan[4] if laporan else '' }}"
-          placeholder="Enter percentage (0-100)"
-          class="w-full px-4 py-3 bg-black/10 rounded-xl text-black font-bold placeholder-black/40 focus:outline-none"
-          required
+        <input 
+          type="number" 
+          id="laporan_persentase_progres" 
+          name="laporan_persentase_progres" 
+          min="0" 
+          max="100" 
+          step="0.1" 
+          value="{{ laporan[4] if laporan else '' }}" 
+          placeholder="Enter percentage (0-100)" 
+          class="w-full px-4 py-3 bg-black/10 rounded-xl text-black font-bold placeholder-black/40 focus:outline-none" 
+          required 
         />
         <p class="mt-1 text-xs text-black/60 font-semibold">
           Enter a value between 0 and 100
         </p>
       </div>
 
-      <!--============================= output ekonomi ===========================-->
+      <!-- Field: Output Ekonomi -->
       <div>
-        <label
-          for="laporan_output_ekonomi"
+        <label 
+          for="laporan_output_ekonomi" 
           class="block text-black font-bold mb-2 text-sm"
         >
           Economic Output (Rp)
         </label>
-        <input
-          type="number"
-          id="laporan_output_ekonomi"
-          name="laporan_output_ekonomi"
-          min="0"
-          step="0.01"
-          value="{{ laporan[5] if laporan else '' }}"
-          placeholder="Enter economic output value"
-          class="w-full px-4 py-3 bg-black/10 rounded-xl text-black font-bold placeholder-black/40 focus:outline-none"
-          required
+        <input 
+          type="number" 
+          id="laporan_output_ekonomi" 
+          name="laporan_output_ekonomi" 
+          min="0" 
+          step="0.01" 
+          value="{{ laporan[5] if laporan else '' }}" 
+          placeholder="Enter economic output value" 
+          class="w-full px-4 py-3 bg-black/10 rounded-xl text-black font-bold placeholder-black/40 focus:outline-none" 
+          required 
         />
         <p class="mt-1 text-xs text-black/60 font-semibold">
           Enter value in Rupiah (example: 1000000 for Rp 1,000,000)
         </p>
       </div>
 
-      <!--============================= BAGIAN BUTTON ===========================-->
+      <!-- Tombol Aksi -->
       <div class="flex justify-center gap-4 pt-2">
-        <button
-          type="submit"
+        <button 
+          type="submit" 
           class="bg-[#15F275] hover:bg-[#C7FB01] text-black font-bold px-20 py-3 rounded-full"
         >
           Save Changes
         </button>
-        <a
-          href="{{ url_for('laporan.read_laporan') }}"
-          class="bg-black/20 hover:bg-black/30 text-black font-bold px-16 py-3 rounded-full flex items-center"
+        <a 
+          href="{{ url_for('laporan.read_laporan') }}" 
+          class="bg-black/20 hover:bg-black/30 text-black font-bold px-16 py-3 rounded-full inline-flex items-center"
         >
           Back
         </a>
       </div>
+      
     </form>
   </div>
+  
 </div>
 {% endblock %}
