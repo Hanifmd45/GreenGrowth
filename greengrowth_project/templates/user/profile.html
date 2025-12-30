@@ -24,7 +24,7 @@
     </a>
     <div
       class="w-full h-56 bg-cover bg-center"
-      style="background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee')">
+      style="background-image:url('/static/images/loreg.jpg')">
     </div>
 
     <!-- AVATAR -->
@@ -50,8 +50,18 @@
           <h2 class="text-2xl font-semibold text-gray-700">{{ profile.nama_user }}</h2>
           <p class="text-sm text-gray-500">{{ profile.email_user }}</p>
         </div>
+
         <div class="mt-2">
-          <a href="{{ url_for('profile_user.edit_profile', user_id=profile.user_id) }}" class="py-2 rounded-full border border-[#0BDAAA] text-[#0BDAAA] hover:bg-[#0BDAAA] hover:text-white transition">Edit Profil</a>
+          <a
+            href="{{ url_for('profile_user.edit_profile', user_id=profile.user_id) }}"
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0BDAAA] text-black hover:bg-[#09c98f] hover:text-white transition shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#0BDAAA] focus:ring-offset-2"
+            aria-label="Edit profil"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232a1 1 0 011.414 0L19 7.586a1 1 0 010 1.414l-9.193 9.193a1 1 0 01-.393.242l-4 1a1 1 0 01-1.266-1.266l1-4a1 1 0 01.242-.393L15.232 5.232z"/>
+            </svg>
+            <span class="font-medium">Edit Profil</span>
+          </a>
         </div>
       </div>
     </div>
