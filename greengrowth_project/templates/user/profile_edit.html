@@ -70,7 +70,7 @@
           type="submit"
           form="editProfileForm"
           class="inline-flex items-center gap-2 px-4 py-2 rounded-full
-                 border border-[#0BDAAA] text-[#0BDAAA]
+                 border bg-[#FFFFF] border-[#0BDAAA] text-[#0BDAAA]
                  hover:bg-[#0BDAAA] hover:text-white transition
                  focus:outline-none focus:ring-2 focus:ring-[#0BDAAA] focus:ring-offset-2">
           Save changes
@@ -84,7 +84,7 @@
       method="POST"
       action="{{ url_for('profile_user.edit_profile', user_id=profile.user_id) }}"
       enctype="multipart/form-data"
-      class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white p-8 rounded-2xl shadow-lg">
+      class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white p-8 rounded-2xl shadow-2xl shadow-lg">
 
       {% set input = "w-full px-4 py-2.5 rounded-md border border-gray-300 focus:ring-2 focus:ring-[#0BDAAA] focus:outline-none bg-white" %}
 
@@ -116,10 +116,14 @@
         <label class="text-sm text-gray-500">Pendidikan Tertinggi</label>
         <select name="pendidikan_tertinggi" class="{{ input }}">
           <option value="">Pilih</option>
-          <option value="High School" {% if profile.pendidikan_tertinggi=='High School' %}selected{% endif %}>High School</option>
-          <option value="Diploma" {% if profile.pendidikan_tertinggi=='Diploma' %}selected{% endif %}>Diploma</option>
-          <option value="Bachelor" {% if profile.pendidikan_tertinggi=='Bachelor' %}selected{% endif %}>Bachelor</option>
-          <option value="Master" {% if profile.pendidikan_tertinggi=='Master' %}selected{% endif %}>Master</option>
+          <option value="Elementary School" {% if profile.pendidikan_tertinggi=='Elementary School' %}selected{% endif %}>Elementary School(SD)</option>
+          <option value="Junior High School" {% if profile.pendidikan_tertinggi=='Junior High School' %}selected{% endif %}>Junior High School(SMP)</option>
+          <option value="Senior High School" {% if profile.pendidikan_tertinggi=='Senior High School' %}selected{% endif %}>Senior High School(SMA/SMK?MAN)</option>
+          <option value="Diploma 3" {% if profile.pendidikan_tertinggi=='Diploma 3' %}selected{% endif %}>Diploma 3</option>
+          <option value="Diploma 4" {% if profile.pendidikan_tertinggi=='Diploma 4' %}selected{% endif %}>Diploma 4</option>
+          <option value="Bachelors Degree" {% if profile.pendidikan_tertinggi=='Bachelors Degree' %}selected{% endif %}>S1</option>
+          <option value="Master Degree" {% if profile.pendidikan_tertinggi=='Master Degree' %}selected{% endif %}>S2</option>
+          <option value="Doctoral Degree" {% if profile.pendidikan_tertinggi=='Doctoral Degree' %}selected{% endif %}>S3</option>
         </select>
       </div>
 
