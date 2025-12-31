@@ -160,3 +160,5 @@ def delete(artikel_id):
     delete_artikel_by_id(artikel_id)
     flash('Artikel dihapus.', 'success')
     return redirect(url_for('artikel.index'))
+
+# greengrowth_project/controllers/admin/artikel.py

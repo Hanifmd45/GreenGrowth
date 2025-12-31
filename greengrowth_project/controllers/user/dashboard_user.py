@@ -26,3 +26,5 @@ def dashboard():
         q=q,
         result_count=len(programs),
     )
+
+# greengrowth_project/controllers/user/dashboard_user.py

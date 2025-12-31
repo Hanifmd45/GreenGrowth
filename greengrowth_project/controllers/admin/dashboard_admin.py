@@ -50,3 +50,4 @@ def dashboard():
     return render_template('admin/dashboard.html', stats=stats)
 
   
+# greengrowth_project/controllers/admin/dashboard_admin.py

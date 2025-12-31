@@ -168,3 +168,5 @@ def update_lamaran_status(lamaran_id, status):
     except Exception as e:
         print(f"Error updating lamaran status: {e}")
         return False
+
+# greengrowth_project/models/lamaran.py

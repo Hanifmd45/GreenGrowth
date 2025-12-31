@@ -96,3 +96,5 @@ def get_artikel_by_id(artikel_id):
         'created_at': r[6],
         'updated_at': r[7]
     }
+
+# greengrowth_project/models/artikel.py
