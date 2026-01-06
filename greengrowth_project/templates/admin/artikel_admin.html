@@ -78,13 +78,10 @@
           class="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-xl text-black focus:outline-none focus:ring-2 focus:ring-[#0BDAAA] focus:border-transparent transition-all"
           required
         >
-          <option value="" disabled selected>-- Select a Program --</option>
+          <option value="" disabled {% if form is not defined or not form.program_id %}selected{% endif %}>-- Select a Program --</option>
           {% for p in programs %}
-          <option
-            value="{{ p.program_id }}"
-            {% if form is defined and form.program_id == p.program_id %}selected{% endif %}
-          >
-            {{ p.nama_program }}
+          <option value="{{ p.id }}" {% if form is defined and form.program_id|string == p.id|string %}selected{% endif %}>
+            {{ p.nama if p.nama else 'Program ' ~ p.id }}
           </option>
           {% endfor %}
         </select>
