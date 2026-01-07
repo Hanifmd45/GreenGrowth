@@ -1,35 +1,19 @@
-{% extends 'layout.html' %}
-
-{% block body_class %}bg-white font-sans{% endblock %}
-
-{% block nav %}
-  {% include 'partials/navbar.html' %}
-{% endblock %}
-
-{# ================= LEFT : CONTENT ================= #}
-{% block aside %}
-<section class="order-1 md:order-1 px-10 py-16 flex flex-col min-h-screen">
+{% extends 'layout.html' %} {% block body_class %}bg-white font-sans{% endblock %} {% block nav %} {% include 'partials/navbar.html' %} {% endblock %} {# ================= LEFT : CONTENT ================= #} {% block aside %}
+<section class="order-1 md:order-1 px-4 sm:px-6 lg:px-10 py-10 sm:py-16 flex flex-col min-h-[calc(100vh-4rem)] md:min-h-screen">
   <!-- TEXT -->
-  <h1 class="text-5xl font-bold leading-tight mb-6">
-    Discover Career <br>
+  <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-6">
+    Discover Career <br />
     Opportunities in <span class="text-green-600">Green Jobs</span>
   </h1>
-  <p class="text-gray-600 max-w-xl mb-10">
-    A platform dedicated to connecting individuals with meaningful career opportunities in the field of environmental sustainability. Our mission is to provide comprehensive information, resources, and job listings for those who are passionate about contributing to a greener future.
-    In today’s world, the need for sustainable development and eco-friendly practices is more urgent than ever. Green jobs roles that promote environmental protection, renewable energy, waste reduction, sustainable agriculture, and conservation are critical for building resilient communities and combating climate change.
-    This platform serves as a bridge between talented professionals and organizations committed to environmental stewardship. Users can explore various career paths, gain insights into emerging industries, and access opportunities that align with their skills and values.</p>
+  <p class="text-gray-600 max-w-xl mb-10 text-sm sm:text-base">
+    A platform dedicated to connecting individuals with meaningful career opportunities in the field of environmental sustainability. Our mission is to provide comprehensive information, resources, and job listings for those who are
+    passionate about contributing to a greener future. In today’s world, the need for sustainable development and eco-friendly practices is more urgent than ever. Green jobs roles that promote environmental protection, renewable energy,
+    waste reduction, sustainable agriculture, and conservation are critical for building resilient communities and combating climate change. This platform serves as a bridge between talented professionals and organizations committed to
+    environmental stewardship. Users can explore various career paths, gain insights into emerging industries, and access opportunities that align with their skills and values.
+  </p>
 </section>
-{% endblock %}
-{% block article %}
-<section class="order-2 md:order-2 flex items-center justify-center p-10 min-h-screen">
-  <img
-    src="{{ url_for('static', filename='images/home.png') }}"
-    alt="Hero Image"
-    class="max-w-2xl opacity-80"
-  >
+{% endblock %} {% block article %}
+<section class="order-2 md:order-2 flex items-center justify-center p-4 sm:p-10 min-h-[calc(100vh-4rem)] md:min-h-screen">
+  <img src="{{ url_for('static', filename='images/home.png') }}" alt="Hero Image" class="w-full h-auto max-w-md sm:max-w-xl lg:max-w-2xl opacity-80" />
 </section>
-{% endblock %}
-
-{% block footer %}
-  {% include 'partials/footer.html' %}
-{% endblock %}
+{% endblock %} {% block footer %} {% include 'partials/footer.html' %} {% endblock %}
