@@ -1,5 +1,13 @@
 import os
-from flask import Flask, render_template
+
+try:
+    import MySQLdb  # noqa: F401
+except ImportError:  # pragma: no cover
+    import pymysql
+
+    pymysql.install_as_MySQLdb()
+
+from flask import Flask, render_template, url_for
 from flask_mysqldb import MySQL
 from dotenv import load_dotenv
 from .controllers.auth.routes import auth_bp
@@ -19,12 +27,27 @@ from .controllers.user.lamaran import lamaran_user_bp
 load_dotenv()
 
 app = Flask(__name__)
+
 app.secret_key = os.environ.get("SECRET_KEY")
-app.config["MYSQL_HOST"] = "localhost"
-app.config['MYSQL_PORT'] = 3306
-app.config["MYSQL_USER"] = "root"
-app.config["MYSQL_PASSWORD"] = ""
-app.config["MYSQL_DB"] = "greengrowth"
+if not app.secret_key:
+    raise RuntimeError(
+        "SECRET_KEY belum diset. Set Environment Variable SECRET_KEY (mis. di Railway)."
+    )
+
+
+def _env(*keys: str, default: str | None = None) -> str | None:
+    for key in keys:
+        value = os.environ.get(key)
+        if value is not None and value != "":
+            return value
+    return default
+
+
+app.config["MYSQL_HOST"] = _env("MYSQL_HOST", "MYSQLHOST", default="localhost")
+app.config["MYSQL_PORT"] = int(_env("MYSQL_PORT", "MYSQLPORT", default="3306"))
+app.config["MYSQL_USER"] = _env("MYSQL_USER", "MYSQLUSER", default="root")
+app.config["MYSQL_PASSWORD"] = _env("MYSQL_PASSWORD", "MYSQLPASSWORD", default="")
+app.config["MYSQL_DB"] = _env("MYSQL_DB", "MYSQLDATABASE", default="greengrowth")
 mysql = MySQL(app)
 
 # File upload config
